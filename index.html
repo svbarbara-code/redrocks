@@ -468,29 +468,31 @@ function renderShow(){
 let checks = store.get('checks', {});
 function chkList(list){ return list.map(([id,t,s]) => '<label class="chk' + (checks[id]?' done':'') + '"><input type="checkbox" data-c="' + id + '"' + (checks[id]?' checked':'') + '><span>' + esc(t) + (s ? '<small>' + esc(s) + '</small>' : '') + '</span></label>').join(''); }
 function renderPrac(){
-  let h = '<h2 style="margin-top:22px">Practical</h2>';
-  h += '<h3 style="margin-top:18px;color:var(--sand)">Checklist</h3>' + chkList(CHECK);
+  const T = [['ck','Checklist'],['pk','Packing'],['wxs','Weather'],['rr','Red Rocks'],['pa','Panama'],['us','US + money'],['vote','Voting'],['sos','Emergencies']];
+  let h = '<nav class="daybar" aria-label="Jump to topic">' + T.map(([id,l]) => '<button class="dchip txt" data-jump="' + id + '">' + l + '</button>').join('') + '</nav>';
+  h += '<h2 style="margin-top:22px">Practical</h2>';
+  h += '<h3 class="jsec" id="ck" style="margin-top:18px;color:var(--sand)">Checklist</h3>' + chkList(CHECK);
   h += '<h3 class="jsec" id="pk" style="margin-top:26px;color:var(--sand)">Carry-on packing</h3><p class="muted small">Everything has to fit a cabin bag + under-seat bag (≈ 10 kg). Ticks are saved on this phone.</p>' + PACK.map(g => '<div style="font-weight:700;margin-top:14px">' + esc(g.g) + ' <span class="muted small">' + g.items.filter(x => checks[x[0]]).length + '/' + g.items.length + '</span></div>' + chkList(g.items)).join('');
-  h += '<h3 style="margin-top:26px;color:var(--sand)">Weather</h3><p class="muted small">Live forecast for the day you\'re in each place (Open-Meteo, updates when online).</p><div class="wx" id="wx"></div><div id="rrHours"></div>';
-  h += '<details><summary>🎸 Red Rocks: what decides the night</summary><div class="small"><ul class="tight">'
+  h += '<h3 class="jsec" id="wxs" style="margin-top:26px;color:var(--sand)">Weather</h3><p class="muted small">Live forecast for the day you\'re in each place (Open-Meteo, updates when online).</p><div class="wx" id="wx"></div><div id="rrHours"></div>';
+  h += '<details class="jsec" id="rr"><summary>🎸 Red Rocks: what decides the night</summary><div class="small"><ul class="tight">'
     + '<li>Both tickets are in Kat\'s AXS app and non-transferable: walk in together, passport in hand.</li>'
     + '<li>≈ 1,950 m, open to the sky. It cools fast after dark and you sit still 18:00–23:00: check the hourly forecast above and bring a real warm layer.</li>'
-    + '<li>The lots fill early and the walk up to the seats is steep: leaving at 16:45 is right.</li>'
+    + '<li>The lots fill early and the walk up to the seats is steep: leaving lunch by 16:50 (≈ 1 h drive) gets you there for doors.</li>'
     + '<li>Altitude + dry air: drink water, go easy on alcohol.</li>'
     + '<li>Check the bag policy on the Red Rocks event page (small clear bags are the norm).</li></ul></div></details>';
-  h += '<details><summary>🇵🇦 Panama: before you leave the airport</summary><div class="small"><p>Leaving Tocumen for the tour is a real entry into Panama. Not yet checked against an official source, so confirm with Panama\'s migration service (Migración Panamá) before you pay an operator:</p><ul class="tight">'
+  h += '<details class="jsec" id="pa"><summary>🇵🇦 Panama: before you leave the airport</summary><div class="small"><p>Leaving Tocumen for the tour is a real entry into Panama. Not yet checked against an official source, so confirm with Panama\'s migration service (Migración Panamá) before you pay an operator:</p><ul class="tight">'
     + '<li>Does a Brazilian passport need anything for a same-day tourist entry?</li>'
     + '<li>Is a yellow-fever certificate asked for on arrival from Brazil? (You arrive from Denver, which may help, but carry the ICV.)</li>'
     + '<li>Proof of onward travel: yours is the same evening.</li></ul><p>If any answer is a problem: stay airside 13 h, nothing lost. Late October is wet season (≈ 29°/24°, rain likely).</p><div class="btns"><a class="btn" href="https://www.migracion.gob.pa/" target="_blank" rel="noopener">Migración Panamá</a></div></div></details>';
-  h += '<details><summary>🇺🇸 US entry + money</summary><div class="small"><ul class="tight">'
+  h += '<details class="jsec" id="us"><summary>🇺🇸 US entry + money</summary><div class="small"><ul class="tight">'
     + '<li>Brazilians need a valid US visa (B1/B2) in the passport: must cover 21–23 Oct.</li>'
     + '<li>Budget rate ≈ R$5.31 per US$ (spot + card IOF).</li>'
     + '<li>Tipping: 18–20 % at sit-down places; Uber tip in the app.</li>'
     + '<li>Plugs: type A/B, 120 V.</li></ul></div></details>';
-  h += '<details><summary>🗳️ Voting on Sunday 25</summary><div class="small"><ul class="tight"><li>2nd round, polls 08:00–17:00 Brasília time.</li><li>Bring an official photo ID or use the e-Título app.</li><li>You land 04:05 and your parents drive you home for ≈ 08:00–09:30: comfortable.</li></ul></div></details>';
-  h += '<details><summary>🆘 Emergencies</summary><div class="small"><dl class="kv"><dt>USA</dt><dd>911</dd><dt>Panama</dt><dd>911</dd><dt>Brazil</dt><dd>190 police · 192 ambulance</dd><dt>Insurance</dt><dd>Assist Card · <a href="tel:+551131918699">+55 11 3191 8699</a> · US <a href="tel:+18008742223">1 800 874 2223</a> · no. 550 34057611 0L30 LA155 / 1 (call before going to an ER)</dd><dt>Hyatt Place DEN</dt><dd><a href="tel:+13033710700">+1 303-371-0700</a></dd></dl></div></details>';
+  h += '<details class="jsec" id="vote"><summary>🗳️ Voting on Sunday 25</summary><div class="small"><ul class="tight"><li>2nd round, polls 08:00–17:00 Brasília time.</li><li>Bring an official photo ID or use the e-Título app.</li><li>You land 04:05 and your parents drive you home for ≈ 08:00–09:30: comfortable.</li></ul></div></details>';
+  h += '<details class="jsec" id="sos"><summary>🆘 Emergencies</summary><div class="small"><dl class="kv"><dt>USA</dt><dd>911</dd><dt>Panama</dt><dd>911</dd><dt>Brazil</dt><dd>190 police · 192 ambulance</dd><dt>Insurance</dt><dd>Assist Card · <a href="tel:+551131918699">+55 11 3191 8699</a> · US <a href="tel:+18008742223">1 800 874 2223</a> · no. 550 34057611 0L30 LA155 / 1 (call before going to an ER)</dd><dt>Hyatt Place DEN</dt><dd><a href="tel:+13033710700">+1 303-371-0700</a></dd></dl></div></details>';
   $('#v-prac').innerHTML = h;
-  renderWx();
+  renderWx(); spy();
 }
 document.addEventListener('change', e => { const id = e.target.dataset && e.target.dataset.c; if (!id) return; checks[id] = e.target.checked; store.set('checks', checks); e.target.closest('.chk').classList.toggle('done', e.target.checked); if (cur === 'prac') { const y = scrollY; renderPrac(); scrollTo(0, y); } });
 
@@ -533,7 +535,7 @@ function go(v, push){
 }
 function setBarH(){ document.documentElement.style.setProperty('--barH', $('.bar').offsetHeight + 'px'); }
 function markJump(id){ const v = document.querySelector('.view:not([hidden])'); if (!v) return; v.querySelectorAll('[data-jump]').forEach(c => { const on = c.dataset.jump === id; c.classList.toggle('on', on); if (on) c.scrollIntoView({inline:'center', block:'nearest'}); }); }
-function jump(id){ const el = document.getElementById(id); if (el) { el.scrollIntoView({block:'start'}); markJump(id); } }
+function jump(id){ const el = document.getElementById(id); if (el) { if (el.tagName === 'DETAILS') el.open = true; el.scrollIntoView({block:'start'}); markJump(id); } }
 let spyT;
 function spy(){ const v = document.querySelector('.view:not([hidden])'); if (!v) return; const secs = v.querySelectorAll('.jsec'); if (!secs.length) return;
   const lim = $('.bar').offsetHeight + 90; let id = secs[0].id; secs.forEach(d => { if (d.getBoundingClientRect().top <= lim) id = d.id; }); markJump(id); }
