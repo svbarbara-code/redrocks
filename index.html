@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="apple-mobile-web-app-capable" content="yes"><title>Red Rocks Run</title>
 <meta name="apple-mobile-web-app-title" content="Red Rocks Run">
-<meta name="theme-color" content="#1B1420">
+<meta name="theme-color" content="#111111">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -13,14 +13,15 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Manrope:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=Manrope:wght@400;600;700&display=swap">
 <style>
 /* One phone-width column, tab bar at the bottom. Single "Red Rocks at night" theme by design (like Altitud). */
 :root{
-  --night:#1B1420; --dusk:#2A1E2B; --rock:#D0573A; --ember:#F08A4B; --sand:#EBCFA8; --mist:#F4ECE4; --rule:#4A3540; --sage:#C7B3AA; --sky:#8FB4D6; --ok:#7DBE8A; --warn:#F2C14E;
-  --display:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
+  --night:#F4EEE1; --dusk:#FFFCF5; --rock:#CE1126; --ember:#B0101F; --sand:#007A3D; --mist:#141414; --rule:#DCCFB8; --sage:#5E5A52; --sky:#2E6E8E; --ok:#007A3D; --warn:#E0A100; --ink:#111111;
+  --tatreez:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' shape-rendering='crispEdges'%3E%3Cg fill='%23CE1126'%3E%3Crect x='10' y='0' width='4' height='2'/%3E%3Crect x='8' y='2' width='2' height='2'/%3E%3Crect x='14' y='2' width='2' height='2'/%3E%3Crect x='6' y='4' width='2' height='4'/%3E%3Crect x='16' y='4' width='2' height='4'/%3E%3Crect x='8' y='8' width='2' height='2'/%3E%3Crect x='14' y='8' width='2' height='2'/%3E%3Crect x='10' y='10' width='4' height='2'/%3E%3C/g%3E%3Crect x='10' y='4' width='4' height='4' fill='%23111'/%3E%3Cg fill='%23007A3D'%3E%3Crect x='0' y='5' width='2' height='2'/%3E%3Crect x='22' y='5' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E");
+  --display:'Reem Kufi','Arial Narrow',sans-serif;
   --body:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
-  color-scheme:dark;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--night)}
@@ -29,14 +30,17 @@ a{color:var(--ember)}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 :focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:6px}
 .wrap{max-width:648px;margin:0 auto;padding:0 16px calc(96px + env(safe-area-inset-bottom,0px))}
-.bar{position:sticky;top:0;z-index:5;background:var(--night);border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px)}
+.bar{position:sticky;top:0;z-index:5;background:var(--ink);color:#F4EEE1;padding-top:env(safe-area-inset-top,0px)}
+.bar::after{content:"";display:block;height:12px;background:var(--tatreez) repeat-x,#F4EEE1;background-size:24px 12px;border-bottom:1px solid var(--rule)}
+.bar .clock{color:#BDB6A8} .bar .clock b{color:#fff}
+.flag{height:4px;background:linear-gradient(90deg,#111 0 33.3%,#fff 33.3% 66.6%,#007A3D 66.6%)}
 .bar-in{max-width:648px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px;min-height:56px}
-.bar-title{font-family:var(--display);font-weight:900;font-size:24px;line-height:1;text-transform:uppercase;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mark{width:40px;height:28px;flex-shrink:0}
+.bar-title{font-family:var(--display);font-weight:700;font-size:24px;line-height:1;text-transform:uppercase;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mark{width:42px;height:28px;flex-shrink:0;border-radius:3px}
 .clock{font-size:12px;font-weight:700;color:var(--sage);text-align:right;line-height:1.25;white-space:nowrap}
 .clock b{color:var(--mist)}
-h1,h2,h3{font-family:var(--display);font-weight:900;text-transform:uppercase;margin:0;line-height:.9}
-h1{font-size:clamp(56px,17vw,100px);text-wrap:balance}
+h1,h2,h3{font-family:var(--display);font-weight:700;text-transform:uppercase;margin:0;line-height:.9}
+h1{font-size:clamp(46px,14vw,80px);text-wrap:balance;line-height:.95}
 h2{font-size:40px;margin:34px 0 8px}
 h3{font-size:24px;margin:0 0 6px}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--ember);text-transform:uppercase}
@@ -44,20 +48,21 @@ h3{font-size:24px;margin:0 0 6px}
 .small{font-size:14px}
 .hero{padding:22px 0 4px;display:flex;flex-direction:column;gap:10px}
 .route{font-size:14px;font-weight:700;color:var(--sand);letter-spacing:.02em}
-.card{background:var(--dusk);border-radius:16px;padding:18px;margin-top:14px}
+.stitch{height:12px;background:var(--tatreez) repeat-x;background-size:24px 12px;margin:4px 0}
+.card{background:var(--dusk);border-radius:16px;padding:18px;margin-top:14px;box-shadow:0 1px 0 var(--rule)}
 .card.hot{border:1.5px solid var(--rock)}
-.big{font-family:var(--display);font-weight:900;font-size:52px;line-height:.9;text-transform:uppercase;color:var(--ember)}
+.big{font-family:var(--display);font-weight:700;font-size:46px;line-height:.9;text-transform:uppercase;color:var(--ember)}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:15px}
 .kv dt{color:var(--sage)} .kv dd{margin:0}
 .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .btn{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--mist);border:1.5px solid var(--rule);border-radius:999px;padding:8px 14px;min-height:40px;text-decoration:none}
 .btn.solid{background:var(--rock);border-color:var(--rock);color:#fff}
-.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:6px;padding:2px 7px;vertical-align:2px;margin-left:6px;color:var(--night);background:var(--ok)}
-.pill.todo{background:var(--warn)} .pill.risk{background:var(--rock);color:#fff} .pill.info{background:var(--sky)}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:6px;padding:2px 7px;vertical-align:2px;margin-left:6px;color:#fff;background:var(--ok)}
+.pill.todo{background:var(--warn);color:#111} .pill.risk{background:var(--rock);color:#fff} .pill.info{background:var(--sky)}
 /* timeline */
 .day{margin-top:26px;scroll-margin-top:calc(70px + env(safe-area-inset-top,0px))}
 .day-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:8px}
-.day-head .d{font-family:var(--display);font-weight:900;font-size:44px;line-height:.85;color:var(--ember);min-width:64px}
+.day-head .d{font-family:var(--display);font-weight:700;font-size:44px;line-height:.85;color:var(--ember);min-width:64px}
 .day-head .d small{display:block;font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--sage);margin-top:6px}
 .day-head .t{font-weight:700;font-size:17px;line-height:1.25}
 .day.is-today .day-head .d{color:var(--sand)}
@@ -80,7 +85,7 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 .chk{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--rule);cursor:pointer}
 .chk input{appearance:none;width:24px;height:24px;border:2px solid var(--rule);border-radius:7px;flex-shrink:0;margin:0;display:grid;place-items:center;background:transparent}
 .chk input:checked{background:var(--ok);border-color:var(--ok)}
-.chk input:checked::after{content:"";width:6px;height:11px;border:solid var(--night);border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
 .chk.done span{color:var(--sage);text-decoration:line-through}
 .chk small{display:block;color:var(--sage);font-size:13px;text-decoration:none}
 ul.tight{margin:6px 0 0;padding-left:20px} ul.tight li{margin:4px 0}
@@ -91,20 +96,20 @@ details summary::after{content:"+";font-size:22px;color:var(--ember)}
 details[open] summary::after{content:"–"}
 details > div{padding-bottom:16px}
 /* tab bar */
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--night);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--ink);border-top:4px solid var(--rock);padding-bottom:env(safe-area-inset-bottom,0px)}
 .tabs-in{max-width:648px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
 .tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px 8px;font-size:11px;font-weight:700;color:var(--sage);min-height:58px}
 .tab svg{width:22px;height:22px}
-.tab[aria-selected=true]{color:var(--ember)}
+.tab{color:#A9A296} .tab[aria-selected=true]{color:#fff} .tab[aria-selected=true] svg{color:#E8293B}
 .view[hidden]{display:none}
 .wx{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:10px}
 .wx .card{margin:0;padding:14px}
-.wx .t{font-family:var(--display);font-weight:900;font-size:34px;line-height:.9;color:var(--sand)}
+.wx .t{font-family:var(--display);font-weight:700;font-size:34px;line-height:.9;color:var(--sand)}
 .foot{margin-top:40px;font-size:12px;color:var(--sage);text-align:center}
 </style>
 
 <header class="bar"><div class="bar-in">
-  <svg class="mark" viewBox="0 0 40 28" aria-hidden="true"><path d="M0 28 L8 12 L13 17 L20 4 L27 15 L31 10 L40 28 Z" fill="#D0573A"/><circle cx="31" cy="5" r="2.6" fill="#EBCFA8"/></svg>
+  <svg class="mark" viewBox="0 0 42 28" aria-hidden="true"><rect width="42" height="9.34" fill="#111"/><rect y="9.33" width="42" height="9.34" fill="#fff"/><rect y="18.66" width="42" height="9.34" fill="#007A3D"/><path d="M0 0 L17 14 L0 28 Z" fill="#CE1126"/><rect x=".5" y=".5" width="41" height="27" fill="none" stroke="#444" rx="2.5"/></svg>
   <div class="bar-title" id="barTitle">Red Rocks Run</div>
   <div class="clock" id="clock"></div>
 </div></header>
@@ -145,7 +150,7 @@ const DAYS = [
   {t:'19:10', n:'✈️ LA2425 · São Paulo → Lima', note:'Lands 22:30 Lima time (Lima = Brazil −2 h).', k:'fly', arr:'22:30', az:'LIM'},
   {t:'22:30', z:'LIM', n:'Lima · 2 h 10 connection', note:'Airside, same booking, bags go through. LATAM says allow 1 h 15 to reach the next gate.', k:'air'}
  ]},
- {date:'2026-10-21', z:'LA', title:'Red-eye → LA → Denver', sub:'The hard day · Wednesday', warn:'Single point of failure: UA2610 at 19:00. If immigration or the museum runs long, that\'s the flight at risk, and Thursday is the show.', ev:[
+ {date:'2026-10-21', z:'LA', title:'Red-eye → LA → Denver', sub:'Long day · Wednesday', warn:'Lots of slack before UA2610: even a 4 h LATAM delay still makes the 19:00 flight (you\'d just skip the museum). The one thing to respect: leave for LAX by 15:30, since afternoon traffic from Koreatown can take 45–75 min.', ev:[
   {t:'00:40', z:'LIM', n:'✈️ LA2478 · Lima → Los Angeles', note:'Red-eye. Lands 07:50 LA time.', k:'fly', arr:'07:50', az:'LA'},
   {t:'07:50', n:'LAX · land + US immigration', note:'Have the passport with your US visa and the hotel address ready. After an overnight this is the unpredictable part.', k:'air'},
   {t:'09:00', n:'The Live Hotel · day room 09:00–14:00', note:'Booked on Dayuse (Standard King). Pay at the hotel ≈ US$99 + tax. Free cancellation up to 2 h before the slot ends.', k:'bed', links:[['Directions',dir('The Live Hotel Los Angeles')]]},
@@ -306,7 +311,7 @@ function renderToday(){
   for (const e of EV) { if (e.at <= now) cur = e; else { next = e; break; } }
   if (cur && cur.end && cur.end <= now && !(cur.k==='fly')) cur = cur; // keep last started as context
   const start = EV[0].at, last = EV[EV.length-1];
-  let h = '<div class="hero"><span class="eyebrow">20–28 October 2026</span><h1>Red Rocks Run</h1>'
+  let h = '<div class="hero"><span class="eyebrow">20–28 October 2026</span><h1>Red Rocks Run</h1><div class="stitch"></div>'
         + '<div class="route">São Paulo → Lima → Los Angeles → Denver → Panama → Rio → Juiz de Fora → São Paulo</div></div>';
   const flying = EV.find(e => e.k==='fly' && e.at <= now && e.end > now);
   const wheels = EV.find(e => e.k==='fly');
@@ -344,7 +349,7 @@ function renderDays(){
   DAYS.forEach(day => {
     const d = new Date(day.date + 'T12:00:00Z');
     h += '<div class="day' + (day.date===todayIso?' is-today':'') + '" id="day-' + day.date + '"><div class="day-head"><div class="d">' + d.getUTCDate() + '<small>' + WD[d.getUTCDay()].toUpperCase() + '</small></div><div><div class="t">' + esc(day.title) + '</div><div class="muted small">' + esc(day.sub) + '</div></div></div>';
-    if (day.warn) h += '<div class="card hot small" style="margin-top:10px">⚠️ ' + esc(day.warn) + '</div>';
+    if (day.warn) h += '<div class="card hot small" style="margin-top:10px">💡 ' + esc(day.warn) + '</div>';
     day.ev.forEach(e => {
       const x = EV.find(v => v.date===day.date && v.t===e.t && v.n===e.n);
       const isNow = x.at <= now && ((x.end && x.end > now) || (!x.end && (EV[EV.indexOf(x)+1]||{at:new Date(8.64e15)}).at > now));
@@ -365,7 +370,7 @@ function renderBook(){
     h += '<h3 style="margin-top:26px;color:var(--sand)">' + esc(g.g) + '</h3>';
     g.items.forEach(b => {
       h += '<div class="card"><div style="font-weight:700;font-size:17px">' + esc(b.n) + (b.s==='todo' ? '<span class="pill todo">not booked</span>' : '<span class="pill">booked</span>') + '</div><div class="muted small" style="margin-top:2px">' + esc(b.w) + '</div><ul class="tight small">' + b.d.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>'
-        + (b.todo.length ? '<div class="small" style="margin-top:8px"><b style="color:var(--warn)">To do</b><ul class="tight">' + b.todo.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') + linksHtml(b.links) + '</div>';
+        + (b.todo.length ? '<div class="small" style="margin-top:8px"><b style="color:#8A5A00">To do</b><ul class="tight">' + b.todo.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') + linksHtml(b.links) + '</div>';
     });
   });
   $('#v-book').innerHTML = h;

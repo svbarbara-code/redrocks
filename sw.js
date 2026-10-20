@@ -1,6 +1,6 @@
 // Red Rocks Run offline cache. The page is network-first (revalidated, so updates show on the next open with signal);
 // icons and Google Fonts are cache-first. The weather API passes through (the page keeps its own last copy).
-const CACHE = 'redrocks-v1';
+const CACHE = 'redrocks-v2';
 const CORE = ['./', 'manifest.webmanifest', 'icon-192.png', 'apple-touch-icon.png', 'favicon-32.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
