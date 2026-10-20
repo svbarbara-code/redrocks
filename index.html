@@ -69,6 +69,13 @@ h3{font-size:24px;margin:0 0 6px}
 .dchip.today{border-color:var(--sand)}
 .dchip.on{background:var(--ink);border-color:var(--ink);color:#fff}
 .dchip.on small{color:#E8293B}
+.dchip.txt{flex-direction:row;padding:0 14px;font-weight:700;font-size:14px;white-space:nowrap}
+.jsec{scroll-margin-top:calc(var(--barH,68px) + 64px)}
+.song{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--rule)}
+.song .no{font-family:var(--display);font-weight:700;font-size:20px;color:var(--ember);text-align:right}
+.song .tt{font-weight:700} .song .ft{font-size:13px;color:var(--sage)}
+.sp{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#fff;background:#1DB954;border-radius:999px;padding:7px 12px;text-decoration:none;white-space:nowrap}
+.enc{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sand);padding:14px 0 4px}
 .day-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:8px}
 .day-head .d{font-family:var(--display);font-weight:700;font-size:44px;line-height:.85;color:var(--ember);min-width:64px}
 .day-head .d small{display:block;font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--sage);margin-top:6px}
@@ -105,7 +112,7 @@ details[open] summary::after{content:"–"}
 details > div{padding-bottom:16px}
 /* tab bar */
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--ink);border-top:4px solid var(--rock);padding-bottom:env(safe-area-inset-bottom,0px)}
-.tabs-in{max-width:648px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.tabs-in{max-width:648px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
 .tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px 8px;font-size:11px;font-weight:700;color:var(--sage);min-height:58px}
 .tab svg{width:22px;height:22px}
 .tab{color:#A9A296} .tab[aria-selected=true]{color:#fff} .tab[aria-selected=true] svg{color:#E8293B}
@@ -126,6 +133,7 @@ details > div{padding-bottom:16px}
   <section class="view" id="v-today"></section>
   <section class="view" id="v-days" hidden></section>
   <section class="view" id="v-book" hidden></section>
+  <section class="view" id="v-show" hidden></section>
   <section class="view" id="v-work" hidden></section>
   <section class="view" id="v-prac" hidden></section>
   <p class="foot">Red Rocks Run · 20–28 Oct 2026 · booking numbers live in your email and airline apps, not here.</p>
@@ -135,6 +143,7 @@ details > div{padding-bottom:16px}
   <button class="tab" role="tab" data-v="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Now</button>
   <button class="tab" role="tab" data-v="days"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Days</button>
   <button class="tab" role="tab" data-v="book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4z"/><path d="M14 7v12" stroke-dasharray="2 2"/></svg>Bookings</button>
+  <button class="tab" role="tab" data-v="show"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Show</button>
   <button class="tab" role="tab" data-v="work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2"/></svg>Work</button>
   <button class="tab" role="tab" data-v="prac"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>Practical</button>
 </div></nav>
@@ -262,16 +271,62 @@ const CHECK = [
  ['xfer','Send your parents the CM486 status before boarding in Panama','They pick you up at GIG ≈ 04:30'],
  ['vote','Vote on Sun 25 (photo ID / e-Título)','Polls 08:00–17:00']
 ];
+const SETLIST = [
+ ['CHANT','feat. Tones And I','Macklemore CHANT Tones And I'],
+ ['Thrift Shop','Macklemore & Ryan Lewis feat. Wanz','Thrift Shop Macklemore Ryan Lewis'],
+ ['No Bad Days','feat. Collett','Macklemore No Bad Days Collett'],
+ ['White Walls','Macklemore & Ryan Lewis feat. ScHoolboy Q, Hollis','White Walls Macklemore Ryan Lewis'],
+ ['Same Love','Macklemore & Ryan Lewis feat. Mary Lambert','Same Love Macklemore Ryan Lewis Mary Lambert'],
+ ['HIND\'S HALL','For Palestine. In every recent set (MetLife, Orange)','Macklemore HIND\'S HALL', 'pal'],
+ ['Downtown','Macklemore & Ryan Lewis feat. Eric Nally, Melle Mel, Kool Moe Dee, Grandmaster Caz','Downtown Macklemore Ryan Lewis'],
+ ['Heroes','feat. DJ Premier','Macklemore Heroes DJ Premier'],
+ ['Wing$','Macklemore & Ryan Lewis','Wings Macklemore Ryan Lewis'],
+ ['These Days','Rudimental cover (with Jess Glynne, Macklemore, Dan Caplen)','These Days Rudimental Macklemore'],
+ ['Otherside','Macklemore & Ryan Lewis','Otherside Macklemore Ryan Lewis'],
+ ['1984','feat. Windser','Macklemore 1984 Windser'],
+ ['And We Danced','feat. Ziggy Stardust','Macklemore And We Danced'],
+ ['Dance Off','Macklemore & Ryan Lewis feat. Idris Elba, Anderson .Paak','Dance Off Macklemore Ryan Lewis Idris Elba'],
+ ['Glorious','feat. Skylar Grey','Macklemore Glorious Skylar Grey'],
+ ['—encore—'],
+ ['Good Old Days','feat. Kesha','Macklemore Good Old Days Kesha'],
+ ['Can\'t Hold Us','Macklemore & Ryan Lewis feat. Ray Dalton','Can\'t Hold Us Macklemore Ryan Lewis Ray Dalton']
+];
+const sp = q => 'https://open.spotify.com/search/' + encodeURIComponent(q);
 const PACK = [
- ['p-warm','Real warm layer + hat for Red Rocks','Outdoors at ~1,950 m, sitting still 18:00–23:00: see the hourly forecast below'],
- ['p-carry','Pack to carry-on only','United + Copa are carry-on only; only LATAM includes checked bags'],
- ['p-plug','US plug adapter (type A/B)',''],
- ['p-dry','Dry bag for phone + passport','Panama boat in the wet season'],
- ['p-cash','Some US$ cash','Tips, the Panama tour'],
- ['p-water','Water bottle + lip balm','Denver is dry and high'],
- ['p-id','Brazilian photo ID for voting','Plus the passport'],
- ['p-yf','Yellow-fever card (ICV), just in case','Some countries ask travellers coming from Brazil'],
- ['p-charge','Power bank + charging cables','Two overnight flights in a row']
+ {g:'Bag rules', items:[
+  ['p-carry','One cabin bag + one under-seat bag','United and Copa include no checked bag; Copa allows 10 kg in the cabin (LATAM 12 kg), so aim for ≤ 10 kg'],
+  ['p-liq','Liquids: 100 ml max each, all in one clear 1 L bag','US security (TSA 3-1-1) and every other airport on the way'],
+  ['p-bat','Power bank + spare batteries in the cabin bag, never checked','']]},
+ {g:'Documents', items:[
+  ['p-pass','Passport with your valid US visa','Needed at LAX; Kat\'s AXS tickets need ID too'],
+  ['p-id','Brazilian photo ID or e-Título for voting',''],
+  ['p-yf','Yellow-fever card (ICV), just in case','Only matters if you leave the airport in Panama'],
+  ['p-ins','Insurance numbers saved offline','Assist Card emergency line + policy no. (Bookings tab)'],
+  ['p-card','2 cards + some US$ cash','Tips, Panama, a card that works without a PIN']]},
+ {g:'Clothes (8 days, 4 climates)', items:[
+  ['p-warm','Warm layer for Red Rocks: fleece or puffer, hat, scarf','Outdoors at ~1,950 m, 18:00–23:00: see the hourly forecast'],
+  ['p-rain','Light rain jacket','LA rain likely Wed, Panama storms Sat'],
+  ['p-tops','4 tops + 1 nicer top for the show',''],
+  ['p-bottoms','2 trousers/jeans + 1 shorts or skirt','Panama is ≈ 30 °C'],
+  ['p-under','Underwear + socks × 5','Hotel sink + laundry in Juiz de Fora'],
+  ['p-shoes','Wear the bulky shoes; pack sandals','Comfortable shoes for the steep Red Rocks walk'],
+  ['p-sleep','Sleepwear','']]},
+ {g:'Overnight flights (3 nights in transit)', items:[
+  ['p-pillow','Neck pillow, eye mask, earplugs','Lima → LA, Denver → Panama, Panama → Rio'],
+  ['p-bottle','Empty water bottle (fill after security)','Denver is dry and high'],
+  ['p-snack','Snacks',''],
+  ['p-pen','Pen','Arrival forms']]},
+ {g:'Work', items:[
+  ['p-laptop','Laptop + charger',''],
+  ['p-head','Headphones with mic','Calls from the hotel and the lounge'],
+  ['p-plug','US plug adapter (type A/B)','Brazil type N at the end'],
+  ['p-charge','Phone charger + cables','']]},
+ {g:'Toiletries + health', items:[
+  ['p-meds','Your regular medicines in the cabin bag, enough + 2 days',''],
+  ['p-kit','Painkillers, antihistamine, motion-sickness tablets',''],
+  ['p-lip','Lip balm + moisturiser','Dry air at altitude'],
+  ['p-sun','Sunscreen + insect repellent (≤ 100 ml)','Panama boat day'],
+  ['p-dry','Small dry bag for phone + passport','Gatún Lake is an open boat']]}
 ];
 
 const PLACES = [
@@ -355,11 +410,11 @@ function renderToday(){
 
 function renderDays(){
   const now = nowD(), todayIso = fmtIn(now, hereZone(now)).iso;
-  let h = '<nav class="daybar" aria-label="Jump to day">' + DAYS.map(day => { const d = new Date(day.date + 'T12:00:00Z'); return '<button class="dchip' + (day.date===todayIso?' today':'') + '" data-day="' + day.date + '"><b>' + d.getUTCDate() + '</b><small>' + WD[d.getUTCDay()].toUpperCase() + '</small></button>'; }).join('') + '</nav>';
+  let h = '<nav class="daybar" aria-label="Jump to day">' + DAYS.map(day => { const d = new Date(day.date + 'T12:00:00Z'); return '<button class="dchip' + (day.date===todayIso?' today':'') + '" data-jump="day-' + day.date + '"><b>' + d.getUTCDate() + '</b><small>' + WD[d.getUTCDay()].toUpperCase() + '</small></button>'; }).join('') + '</nav>';
   h += '<h2 style="margin-top:22px">Day by day</h2><p class="muted small">Times are local where you are. Tap Directions to open Maps.</p>';
   DAYS.forEach(day => {
     const d = new Date(day.date + 'T12:00:00Z');
-    h += '<div class="day' + (day.date===todayIso?' is-today':'') + '" id="day-' + day.date + '"><div class="day-head"><div class="d">' + d.getUTCDate() + '<small>' + WD[d.getUTCDay()].toUpperCase() + '</small></div><div><div class="t">' + esc(day.title) + '</div><div class="muted small">' + esc(day.sub) + '</div></div></div>';
+    h += '<div class="day jsec' + (day.date===todayIso?' is-today':'') + '" id="day-' + day.date + '"><div class="day-head"><div class="d">' + d.getUTCDate() + '<small>' + WD[d.getUTCDay()].toUpperCase() + '</small></div><div><div class="t">' + esc(day.title) + '</div><div class="muted small">' + esc(day.sub) + '</div></div></div>';
     if (day.warn) h += '<div class="card hot small" style="margin-top:10px">💡 ' + esc(day.warn) + '</div>';
     day.ev.forEach(e => {
       const x = EV.find(v => v.date===day.date && v.t===e.t && v.n===e.n);
@@ -373,19 +428,21 @@ function renderDays(){
     h += '</div>';
   });
   $('#v-days').innerHTML = h;
-  daySpy();
+  spy();
 }
 
 function renderBook(){
-  let h = '<h2 style="margin-top:22px">Bookings</h2><p class="muted small">What\'s booked, what\'s left. Confirmation codes stay in your email and apps.</p>';
-  BOOK.forEach(g => {
-    h += '<h3 style="margin-top:26px;color:var(--sand)">' + esc(g.g) + '</h3>';
+  let h = '<nav class="daybar" aria-label="Jump to topic">' + BOOK.map((g,i) => '<button class="dchip txt" data-jump="bk-' + i + '">' + esc(g.g) + '</button>').join('') + '</nav>';
+  h += '<h2 style="margin-top:22px">Bookings</h2><p class="muted small">What\'s booked, what\'s left. Confirmation codes stay in your email and apps.</p>';
+  BOOK.forEach((g,gi) => {
+    h += '<h3 class="jsec" id="bk-' + gi + '" style="margin-top:26px;color:var(--sand)">' + esc(g.g) + '</h3>';
     g.items.forEach(b => {
       h += '<div class="card"><div style="font-weight:700;font-size:17px">' + esc(b.n) + (b.s==='todo' ? '<span class="pill todo">not booked</span>' : '<span class="pill">booked</span>') + '</div><div class="muted small" style="margin-top:2px">' + esc(b.w) + '</div><ul class="tight small">' + b.d.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>'
         + (b.todo.length ? '<div class="small" style="margin-top:8px"><b style="color:#8A5A00">To do</b><ul class="tight">' + b.todo.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') + linksHtml(b.links) + '</div>';
     });
   });
   $('#v-book').innerHTML = h;
+  spy();
 }
 
 function renderWork(){
@@ -398,12 +455,23 @@ function renderWork(){
   $('#v-work').innerHTML = h;
 }
 
+function renderShow(){
+  let h = '<div class="hero"><span class="eyebrow">Thu 22 Oct · doors 18:00 · show 19:00</span><h1 style="font-size:clamp(38px,11.5vw,72px)">Macklemore</h1><div class="stitch"></div><div class="route">Red Rocks Amphitheatre · Row 4, seats 86–87</div></div>';
+  h += '<p class="muted small">Expected set: the Ben Tour average setlist (setlist.fm, 55 shows), plus HIND\'S HALL, which he has played at every recent show. The real order changes night to night.</p>';
+  h += '<div class="btns"><a class="sp" href="' + sp('Macklemore Ben Tour setlist') + '" target="_blank" rel="noopener">▶ Setlist playlists on Spotify</a><a class="btn" href="https://www.setlist.fm/setlists/macklemore-1bd76d34.html" target="_blank" rel="noopener">Latest on setlist.fm</a></div>';
+  let n = 0; h += '<div class="card" style="padding:4px 16px 8px">';
+  SETLIST.forEach(x => { if (x.length === 1) { h += '<div class="enc">Encore</div>'; return; } n++;
+    h += '<div class="song"><div class="no">' + n + '</div><div><div class="tt">' + esc(x[0]) + (x[3]==='pal' ? ' 🇵🇸' : '') + '</div><div class="ft">' + esc(x[1]) + '</div></div><a class="sp" href="' + sp(x[2]) + '" target="_blank" rel="noopener" aria-label="Play ' + esc(x[0]) + ' on Spotify">▶ Spotify</a></div>'; });
+  h += '</div><p class="muted small" style="margin-top:10px">Each button opens the song in Spotify search (app or web).</p>';
+  $('#v-show').innerHTML = h;
+}
+
 let checks = store.get('checks', {});
 function chkList(list){ return list.map(([id,t,s]) => '<label class="chk' + (checks[id]?' done':'') + '"><input type="checkbox" data-c="' + id + '"' + (checks[id]?' checked':'') + '><span>' + esc(t) + (s ? '<small>' + esc(s) + '</small>' : '') + '</span></label>').join(''); }
 function renderPrac(){
   let h = '<h2 style="margin-top:22px">Practical</h2>';
   h += '<h3 style="margin-top:18px;color:var(--sand)">Checklist</h3>' + chkList(CHECK);
-  h += '<h3 style="margin-top:26px;color:var(--sand)">Packing</h3>' + chkList(PACK);
+  h += '<h3 class="jsec" id="pk" style="margin-top:26px;color:var(--sand)">Carry-on packing</h3><p class="muted small">Everything has to fit a cabin bag + under-seat bag (≈ 10 kg). Ticks are saved on this phone.</p>' + PACK.map(g => '<div style="font-weight:700;margin-top:14px">' + esc(g.g) + ' <span class="muted small">' + g.items.filter(x => checks[x[0]]).length + '/' + g.items.length + '</span></div>' + chkList(g.items)).join('');
   h += '<h3 style="margin-top:26px;color:var(--sand)">Weather</h3><p class="muted small">Live forecast for the day you\'re in each place (Open-Meteo, updates when online).</p><div class="wx" id="wx"></div><div id="rrHours"></div>';
   h += '<details><summary>🎸 Red Rocks: what decides the night</summary><div class="small"><ul class="tight">'
     + '<li>Both tickets are in Kat\'s AXS app and non-transferable: walk in together, passport in hand.</li>'
@@ -425,7 +493,7 @@ function renderPrac(){
   $('#v-prac').innerHTML = h;
   renderWx();
 }
-document.addEventListener('change', e => { const id = e.target.dataset && e.target.dataset.c; if (!id) return; checks[id] = e.target.checked; store.set('checks', checks); e.target.closest('.chk').classList.toggle('done', e.target.checked); });
+document.addEventListener('change', e => { const id = e.target.dataset && e.target.dataset.c; if (!id) return; checks[id] = e.target.checked; store.set('checks', checks); e.target.closest('.chk').classList.toggle('done', e.target.checked); if (cur === 'prac') { const y = scrollY; renderPrac(); scrollTo(0, y); } });
 
 /* ---------- weather (Open-Meteo, no key) ---------- */
 const WMO = c => c==null?'':c<=1?'☀️':c<=3?'⛅':c<=48?'🌫️':c<=67?'🌧️':c<=77?'🌨️':c<=82?'🌦️':'⛈️';
@@ -451,8 +519,8 @@ async function todayWeather(iso){ await loadWx(); const el = $('#todayWx'); if (
   el.innerHTML = '<div class="wx">' + ps.map(wxCard).join('') + '</div>'; }
 
 /* ---------- shell ---------- */
-const VIEWS = {today:renderToday, days:renderDays, book:renderBook, work:renderWork, prac:renderPrac};
-const TITLES = {today:'Red Rocks Run', days:'Day by day', book:'Bookings', work:'Work hours', prac:'Practical'};
+const VIEWS = {today:renderToday, days:renderDays, book:renderBook, show:renderShow, work:renderWork, prac:renderPrac};
+const TITLES = {today:'Red Rocks Run', days:'Day by day', book:'Bookings', show:'The show', work:'Work hours', prac:'Practical'};
 let cur = null;
 function go(v, push){
   if (!VIEWS[v]) v = 'today';
@@ -462,17 +530,17 @@ function go(v, push){
   VIEWS[v](); cur = v;
   if (push !== false && location.hash !== '#' + v) history.pushState(null, '', '#' + v);
   window.scrollTo(0,0);
-  if (v === 'days') { const now = nowD(), iso = fmtIn(now, hereZone(now)).iso, el = document.getElementById('day-' + iso); setTimeout(() => { setBarH(); if (el) jumpDay(iso); else markDay(DAYS[0].date); }, 30); }
+  if (v === 'days') { const now = nowD(), iso = fmtIn(now, hereZone(now)).iso, el = document.getElementById('day-' + iso); setTimeout(() => { setBarH(); if (el) jump('day-' + iso); else spy(); }, 30); }
 }
 function setBarH(){ document.documentElement.style.setProperty('--barH', $('.bar').offsetHeight + 'px'); }
-function markDay(iso){ document.querySelectorAll('.dchip').forEach(c => { const on = c.dataset.day === iso; c.classList.toggle('on', on); if (on) c.scrollIntoView({inline:'center', block:'nearest'}); }); }
-function jumpDay(iso){ const el = document.getElementById('day-' + iso); if (el) { el.scrollIntoView({block:'start'}); markDay(iso); } }
+function markJump(id){ const v = document.querySelector('.view:not([hidden])'); if (!v) return; v.querySelectorAll('[data-jump]').forEach(c => { const on = c.dataset.jump === id; c.classList.toggle('on', on); if (on) c.scrollIntoView({inline:'center', block:'nearest'}); }); }
+function jump(id){ const el = document.getElementById(id); if (el) { el.scrollIntoView({block:'start'}); markJump(id); } }
 let spyT;
-function daySpy(){ if (cur !== 'days' && !document.querySelector('#v-days:not([hidden])')) return; const lim = $('.bar').offsetHeight + 80; let iso = DAYS[0].date;
-  document.querySelectorAll('.day').forEach(d => { if (d.getBoundingClientRect().top <= lim) iso = d.id.slice(4); }); markDay(iso); }
-window.addEventListener('scroll', () => { clearTimeout(spyT); spyT = setTimeout(daySpy, 80); }, {passive:true});
+function spy(){ const v = document.querySelector('.view:not([hidden])'); if (!v) return; const secs = v.querySelectorAll('.jsec'); if (!secs.length) return;
+  const lim = $('.bar').offsetHeight + 90; let id = secs[0].id; secs.forEach(d => { if (d.getBoundingClientRect().top <= lim) id = d.id; }); markJump(id); }
+window.addEventListener('scroll', () => { clearTimeout(spyT); spyT = setTimeout(spy, 80); }, {passive:true});
 window.addEventListener('resize', setBarH); setBarH();
-document.addEventListener('click', e => { const dc = e.target.closest('[data-day]'); if (dc) { jumpDay(dc.dataset.day); return; } });
+document.addEventListener('click', e => { const dc = e.target.closest('[data-jump]'); if (dc) { jump(dc.dataset.jump); return; } });
 document.addEventListener('click', e => { const t = e.target.closest('[data-v],[data-go]'); if (t) go(t.dataset.v || t.dataset.go); });
 window.addEventListener('popstate', () => go(location.hash.slice(1), false));
 function tick(){ const now = nowD(), z = hereZone(now), h = fmtIn(now, z), ny = fmtIn(now, NY);
