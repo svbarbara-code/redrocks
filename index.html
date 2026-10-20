@@ -1,0 +1,460 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="apple-mobile-web-app-capable" content="yes"><title>Red Rocks Run</title>
+<meta name="apple-mobile-web-app-title" content="Red Rocks Run">
+<meta name="theme-color" content="#1B1420">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta property="og:title" content="Red Rocks Run · 20–28 Oct">
+<meta property="og:description" content="São Paulo → Los Angeles → Denver (Macklemore at Red Rocks) → Panama → Rio → Juiz de Fora → São Paulo.">
+<meta property="og:image" content="https://svbarbara-code.github.io/redrocks/share.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://svbarbara-code.github.io/redrocks/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Manrope:wght@400;600;700&display=swap">
+<style>
+/* One phone-width column, tab bar at the bottom. Single "Red Rocks at night" theme by design (like Altitud). */
+:root{
+  --night:#1B1420; --dusk:#2A1E2B; --rock:#D0573A; --ember:#F08A4B; --sand:#EBCFA8; --mist:#F4ECE4; --rule:#4A3540; --sage:#C7B3AA; --sky:#8FB4D6; --ok:#7DBE8A; --warn:#F2C14E;
+  --display:'Big Shoulders Display','Arial Narrow',Impact,sans-serif;
+  --body:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--night)}
+body{color:var(--mist);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+a{color:var(--ember)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:6px}
+.wrap{max-width:648px;margin:0 auto;padding:0 16px calc(96px + env(safe-area-inset-bottom,0px))}
+.bar{position:sticky;top:0;z-index:5;background:var(--night);border-bottom:1px solid var(--rule);padding-top:env(safe-area-inset-top,0px)}
+.bar-in{max-width:648px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px;min-height:56px}
+.bar-title{font-family:var(--display);font-weight:900;font-size:24px;line-height:1;text-transform:uppercase;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mark{width:40px;height:28px;flex-shrink:0}
+.clock{font-size:12px;font-weight:700;color:var(--sage);text-align:right;line-height:1.25;white-space:nowrap}
+.clock b{color:var(--mist)}
+h1,h2,h3{font-family:var(--display);font-weight:900;text-transform:uppercase;margin:0;line-height:.9}
+h1{font-size:clamp(56px,17vw,100px);text-wrap:balance}
+h2{font-size:40px;margin:34px 0 8px}
+h3{font-size:24px;margin:0 0 6px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--ember);text-transform:uppercase}
+.muted{color:var(--sage)}
+.small{font-size:14px}
+.hero{padding:22px 0 4px;display:flex;flex-direction:column;gap:10px}
+.route{font-size:14px;font-weight:700;color:var(--sand);letter-spacing:.02em}
+.card{background:var(--dusk);border-radius:16px;padding:18px;margin-top:14px}
+.card.hot{border:1.5px solid var(--rock)}
+.big{font-family:var(--display);font-weight:900;font-size:52px;line-height:.9;text-transform:uppercase;color:var(--ember)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:15px}
+.kv dt{color:var(--sage)} .kv dd{margin:0}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--mist);border:1.5px solid var(--rule);border-radius:999px;padding:8px 14px;min-height:40px;text-decoration:none}
+.btn.solid{background:var(--rock);border-color:var(--rock);color:#fff}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:6px;padding:2px 7px;vertical-align:2px;margin-left:6px;color:var(--night);background:var(--ok)}
+.pill.todo{background:var(--warn)} .pill.risk{background:var(--rock);color:#fff} .pill.info{background:var(--sky)}
+/* timeline */
+.day{margin-top:26px;scroll-margin-top:calc(70px + env(safe-area-inset-top,0px))}
+.day-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:8px}
+.day-head .d{font-family:var(--display);font-weight:900;font-size:44px;line-height:.85;color:var(--ember);min-width:64px}
+.day-head .d small{display:block;font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--sage);margin-top:6px}
+.day-head .t{font-weight:700;font-size:17px;line-height:1.25}
+.day.is-today .day-head .d{color:var(--sand)}
+.ev{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--rule)}
+.ev .tm{font-weight:700;font-size:15px;color:var(--sand);font-variant-numeric:tabular-nums}
+.ev .tm small{display:block;font-size:11px;color:var(--sage);font-weight:600;margin-top:2px}
+.ev .nm{font-weight:700;font-size:16px;line-height:1.3}
+.ev .nt{font-size:14px;color:var(--sage);margin-top:3px}
+.ev.now{background:linear-gradient(90deg,rgba(208,87,58,.18),transparent);border-left:3px solid var(--rock);padding-left:8px;margin-left:-11px}
+.ev.past{opacity:.55}
+.ev .btns{margin-top:8px}
+.ev .btn{min-height:34px;padding:5px 11px;font-size:13px}
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);font-weight:700}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+/* checklist */
+.chk{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--rule);cursor:pointer}
+.chk input{appearance:none;width:24px;height:24px;border:2px solid var(--rule);border-radius:7px;flex-shrink:0;margin:0;display:grid;place-items:center;background:transparent}
+.chk input:checked{background:var(--ok);border-color:var(--ok)}
+.chk input:checked::after{content:"";width:6px;height:11px;border:solid var(--night);border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk.done span{color:var(--sage);text-decoration:line-through}
+.chk small{display:block;color:var(--sage);font-size:13px;text-decoration:none}
+ul.tight{margin:6px 0 0;padding-left:20px} ul.tight li{margin:4px 0}
+details{background:var(--dusk);border-radius:16px;padding:0 18px;margin-top:12px}
+details summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:56px;font-weight:700;gap:10px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";font-size:22px;color:var(--ember)}
+details[open] summary::after{content:"–"}
+details > div{padding-bottom:16px}
+/* tab bar */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--night);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs-in{max-width:648px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px 8px;font-size:11px;font-weight:700;color:var(--sage);min-height:58px}
+.tab svg{width:22px;height:22px}
+.tab[aria-selected=true]{color:var(--ember)}
+.view[hidden]{display:none}
+.wx{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:10px}
+.wx .card{margin:0;padding:14px}
+.wx .t{font-family:var(--display);font-weight:900;font-size:34px;line-height:.9;color:var(--sand)}
+.foot{margin-top:40px;font-size:12px;color:var(--sage);text-align:center}
+</style>
+
+<header class="bar"><div class="bar-in">
+  <svg class="mark" viewBox="0 0 40 28" aria-hidden="true"><path d="M0 28 L8 12 L13 17 L20 4 L27 15 L31 10 L40 28 Z" fill="#D0573A"/><circle cx="31" cy="5" r="2.6" fill="#EBCFA8"/></svg>
+  <div class="bar-title" id="barTitle">Red Rocks Run</div>
+  <div class="clock" id="clock"></div>
+</div></header>
+
+<main class="wrap">
+  <section class="view" id="v-today"></section>
+  <section class="view" id="v-days" hidden></section>
+  <section class="view" id="v-book" hidden></section>
+  <section class="view" id="v-work" hidden></section>
+  <section class="view" id="v-prac" hidden></section>
+  <p class="foot">Red Rocks Run · 20–28 Oct 2026 · booking numbers live in your email and airline apps, not here.</p>
+</main>
+
+<nav class="tabs" role="tablist"><div class="tabs-in">
+  <button class="tab" role="tab" data-v="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Now</button>
+  <button class="tab" role="tab" data-v="days"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Days</button>
+  <button class="tab" role="tab" data-v="book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4z"/><path d="M14 7v12" stroke-dasharray="2 2"/></svg>Bookings</button>
+  <button class="tab" role="tab" data-v="work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2"/></svg>Work</button>
+  <button class="tab" role="tab" data-v="prac"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>Practical</button>
+</div></nav>
+
+<script>
+(function(){
+"use strict";
+/* ---------- data ---------- Times are local wall-clock + UTC offset of where you are. */
+const Z = {SP:'-03:00', LIM:'-05:00', LA:'-07:00', DEN:'-06:00', PTY:'-05:00', RIO:'-03:00'};
+const ZN = {'-03:00':'Brazil','-05:00':'Lima / Panama','-07:00':'Los Angeles','-06:00':'Denver'};
+const maps = q => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+const dir  = q => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(q);
+
+const DAYS = [
+ {date:'2026-10-20', z:'SP', title:'Work from home, then fly out', sub:'São Paulo · Tuesday', ev:[
+  {t:'10:00', end:'16:00', n:'Work from home', note:'10:00–16:00 here = 09:00–15:00 New York. Brazil is 1 h ahead of New York this week.', k:'work'},
+  {t:'12:00', n:'Do the LATAM travel documents + check-in', note:'LATAM\'s email last night says the travel documentation isn\'t filled in yet, so check-in can\'t finish. Do it in the LATAM app, and pick seats for both legs while you\'re there.', k:'todo', links:[['LATAM app / site','https://www.latamairlines.com/br/pt/minhas-viagens']]},
+  {t:'16:00', n:'Uber home → GRU', note:'≈ R$100. Work the rest of the New York afternoon from the lounge.', k:'go', links:[['Directions',dir('Aeroporto Internacional de Guarulhos Terminal 3')]]},
+  {t:'16:10', n:'At GRU · LATAM\'s suggested arrival', note:'International flight. 2 × 23 kg checked bags are included on the LATAM ticket (but United and Copa later are carry-on only).', k:'air'},
+  {t:'18:30', n:'At the gate', note:'Boarding closes 18:40.', k:'air'},
+  {t:'19:10', n:'✈️ LA2425 · São Paulo → Lima', note:'Lands 22:30 Lima time (Lima = Brazil −2 h).', k:'fly', arr:'22:30', az:'LIM'},
+  {t:'22:30', z:'LIM', n:'Lima · 2 h 10 connection', note:'Airside, same booking, bags go through. LATAM says allow 1 h 15 to reach the next gate.', k:'air'}
+ ]},
+ {date:'2026-10-21', z:'LA', title:'Red-eye → LA → Denver', sub:'The hard day · Wednesday', warn:'Single point of failure: UA2610 at 19:00. If immigration or the museum runs long, that\'s the flight at risk, and Thursday is the show.', ev:[
+  {t:'00:40', z:'LIM', n:'✈️ LA2478 · Lima → Los Angeles', note:'Red-eye. Lands 07:50 LA time.', k:'fly', arr:'07:50', az:'LA'},
+  {t:'07:50', n:'LAX · land + US immigration', note:'Have the passport with your US visa and the hotel address ready. After an overnight this is the unpredictable part.', k:'air'},
+  {t:'09:00', n:'The Live Hotel · day room 09:00–14:00', note:'Booked on Dayuse (Standard King). Pay at the hotel ≈ US$99 + tax. Free cancellation up to 2 h before the slot ends.', k:'bed', links:[['Directions',dir('The Live Hotel Los Angeles')]]},
+  {t:'09:30', end:'12:45', n:'Work from the hotel', note:'09:30–12:45 LA = 12:30–15:45 New York. The 09:00–12:30 NY block is lost in the air: send updates for those two meetings in writing beforehand.', k:'work'},
+  {t:'12:45', n:'Leave the bag at the front desk → museum', note:'≈ 6 min by car. Checkout is 14:00 and you\'ll still be inside.', k:'go'},
+  {t:'13:00', n:'🎟️ Hospital of Emotions', note:'Entry 13:00–13:10, general admission, ≈ 2 h. Non-refundable. 2131 W 3rd St.', k:'fun', links:[['Directions',dir('Hospital of Emotions, 2131 W 3rd St, Los Angeles, CA 90057')]]},
+  {t:'15:30', n:'Collect bag → Uber to LAX', note:'≈ US$45, at LAX around 16:30.', k:'go', links:[['Directions',dir('LAX Terminal 7 United')]]},
+  {t:'16:30', n:'LAX · email from the gate', note:'Your real catch-up window: 16:30–19:00.', k:'air'},
+  {t:'19:00', n:'✈️ UA2610 · Los Angeles → Denver', note:'Carry-on only. Lands 22:29 Denver time (LA + 1 h). Check in from 19:00 Tuesday LA time.', k:'fly', arr:'22:29', az:'DEN'},
+  {t:'22:29', z:'DEN', n:'DEN → Hyatt Place Denver Airport', note:'Hotel shuttle or Uber, 10–15 min, or Louisa if she already has the car.', k:'go', links:[['Directions',dir('Hyatt Place Denver Airport, 16250 E 40th Ave, Aurora, CO 80011')]]},
+  {t:'23:00', z:'DEN', n:'🛏️ Hyatt Place check-in', note:'Booked Wed 21 → Fri 23, late arrival and high floor requested. Parking US$12/day if Louisa brings the car.', k:'bed'}
+ ]},
+ {date:'2026-10-22', z:'DEN', title:'Show day 🎸', sub:'Denver · Thursday', ev:[
+  {t:'07:00', end:'15:00', n:'Work from the hotel', note:'07:00–15:00 Denver = full 09:00–17:00 New York day.', k:'work'},
+  {t:'16:45', n:'Drive to Red Rocks with Louisa', note:'≈ 1 h from the airport hotel. The lots fill early and the walk up is steep. Bring the warm layer.', k:'go', links:[['Directions',dir('Red Rocks Amphitheatre, Morrison, CO')]]},
+  {t:'18:00', n:'Doors open', note:'Tickets are AXS Mobile ID in Louisa\'s app, non-transferable: you go in together. Bring your passport.', k:'fun'},
+  {t:'19:00', n:'🎸 Macklemore · Red Rocks Amphitheatre', note:'Row 4, seats 86–87 (the "Rows 2 to 4" section). ≈ 1,950 m up, open-air, cold after dark.', k:'fun'},
+  {t:'23:30', n:'Drive back to the hotel', note:'≈ 1 h 15. That\'s 01:30 New York, and work starts 07:00.', k:'go'}
+ ]},
+ {date:'2026-10-23', z:'DEN', title:'Work, then overnight to Panama', sub:'Denver · Friday', ev:[
+  {t:'07:00', end:'15:00', n:'Work from the hotel', note:'Full New York day. Checkout is 12:00, so ask the front desk for 15:00 (≈ US$50).', k:'work'},
+  {t:'12:00', n:'Hotel checkout (or 15:00 if extended)', note:'', k:'bed'},
+  {t:'19:30', n:'DEN · departures', note:'Hotel shuttle or Uber, 10–15 min. Copa is carry-on only. Online check-in opens 24 h before.', k:'air', links:[['Copa check-in','https://www.copaair.com/en-gs/web-check-in/']]},
+  {t:'22:43', n:'✈️ CM477 · Denver → Panama City', note:'Overnight. Lands 05:33 Saturday, Panama time (Denver + 1 h).', k:'fly', arr:'05:33', az:'PTY'}
+ ]},
+ {date:'2026-10-24', z:'PTY', title:'Panama layover · 13 h 25', sub:'Panama City · Saturday · no work', ev:[
+  {t:'05:33', n:'Land Tocumen (PTY)', note:'Leaving the airport = a real entry into Panama. Check the entry rules first (see Practical).', k:'air'},
+  {t:'07:30', n:'⬜ Gatún Lake + Monkey Island (not booked)', note:'Group tour ≈ US$79–99 + airport transfers, or private ≈ US$135 pp for two. Get a solo quote. Late October is wet season: ask what happens if it pours, take a dry bag.', k:'todo'},
+  {t:'12:00', n:'⬜ Casco Viejo · lunch and coffee', note:'Leave the city by 14:15.', k:'todo', links:[['Map',maps('Casco Viejo, Panama City')]]},
+  {t:'15:30', n:'Back at PTY', note:'3.5 h before departure: right for the leg that gets you home to vote.', k:'air'},
+  {t:'18:58', n:'✈️ CM486 · Panama → Rio (GIG)', note:'Overnight. Lands 04:05 Sunday, Brazil time (Panama + 2 h).', k:'fly', arr:'04:05', az:'RIO'}
+ ]},
+ {date:'2026-10-25', z:'RIO', title:'Election day 🗳️ · Rio → Juiz de Fora', sub:'Sunday · 2nd round', ev:[
+  {t:'04:05', n:'Land Rio Galeão (GIG)', note:'Second round of the 2026 election is today.', k:'air'},
+  {t:'04:30', n:'🚐 Transfer GIG → Juiz de Fora (booked)', note:'Booked outside email. Add the pickup time and driver contact to your phone notes.', k:'go', links:[['Directions',dir('Juiz de Fora, MG')]]},
+  {t:'08:00', n:'🏠 Home, Juiz de Fora', note:'Arrive ≈ 08:00–09:30.', k:'home'},
+  {t:'09:30', n:'🗳️ Vote', note:'Polls 08:00–17:00. Take a photo ID (or the e-Título app).', k:'todo'}
+ ]},
+ {date:'2026-10-26', z:'RIO', title:'Juiz de Fora', sub:'Monday', ev:[
+  {t:'10:00', end:'18:00', n:'Work from Juiz de Fora', note:'10:00–18:00 here = 09:00–17:00 New York.', k:'work'}
+ ]},
+ {date:'2026-10-27', z:'RIO', title:'Juiz de Fora → overnight bus', sub:'Tuesday', ev:[
+  {t:'10:00', end:'18:00', n:'Work from Juiz de Fora', note:'', k:'work'},
+  {t:'20:00', n:'🚌 Rodoviária de Juiz de Fora · platform 11', note:'Boarding pass is in the Cometa email. Get there 30 min early.', k:'go', links:[['Directions',dir('Rodoviária de Juiz de Fora')]]},
+  {t:'20:30', n:'🚌 Cometa · Juiz de Fora → São Paulo (Tietê)', note:'Leito-cama, seat 59. Arrives 04:05 Wednesday.', k:'fly', arr:'04:05', az:'SP'}
+ ]},
+ {date:'2026-10-28', z:'SP', title:'Back in São Paulo', sub:'Wednesday', ev:[
+  {t:'04:05', n:'Tietê → home', note:'Uber/taxi from the Terminal Tietê exit.', k:'home'}
+ ]}
+];
+
+const BOOK = [
+ {g:'Flights', items:[
+  {n:'LATAM · São Paulo → Lima → Los Angeles', s:'ok', w:'Tue 20 19:10 → Wed 21 07:50', d:['LA2425 GRU 19:10 → LIM 22:30','LA2478 LIM 00:40 → LAX 07:50','Paid with LATAM Pass points + taxes','Bags: under-seat bag + 12 kg cabin bag + 2 × 23 kg checked'], todo:['Fill in travel documents (LATAM says it\'s missing)','Check in + choose seats on both legs'], links:[['My trips','https://www.latamairlines.com/br/pt/minhas-viagens']]},
+  {n:'United · Los Angeles → Denver', s:'ok', w:'Wed 21 19:00 → 22:29', d:['UA2610, Economy','Carry-on only'], todo:['Check in from Tue 19:00 LA time (24 h before)','Choose a seat'], links:[['United app','https://www.united.com/en/us/manageres/mytrips']]},
+  {n:'Copa · Denver → Panama → Rio', s:'ok', w:'Fri 23 22:43 → Sun 25 04:05', d:['CM477 DEN 22:43 → PTY 05:33 (Sat)','CM486 PTY 18:58 → GIG 04:05 (Sun)','Economy Basic · carry-on only'], todo:['Check in 24 h before each leg','Seats: Basic usually pays or gets assigned at check-in','Make sure the older 24 h price-lock hold was closed and never charged'], links:[['Copa check-in','https://www.copaair.com/en-gs/web-check-in/']]}
+ ]},
+ {g:'Stays', items:[
+  {n:'The Live Hotel · LA day room', s:'ok', w:'Wed 21 · 09:00–14:00', d:['Standard King, booked on Dayuse','Pay at the hotel ≈ US$99 + tax (small deposit paid online)','Free cancellation up to 2 h before the slot ends'], todo:['Leave the bag at the desk before the museum'], links:[['Directions',dir('The Live Hotel Los Angeles')]]},
+  {n:'Hyatt Place Denver Airport', s:'ok', w:'Wed 21 (late) → Fri 23 12:00', d:['16250 E 40th Ave, Aurora · +1 303-371-0700','2 double beds + sofa bed, work desk','Late arrival + high floor requested','Parking US$12/day'], todo:['Ask for a 15:00 late checkout on Fri (≈ US$50)','Louisa also has a Thu → Fri booking: check with her which room you\'re both in'], links:[['Call','tel:+13033710700'],['Directions',dir('Hyatt Place Denver Airport')]]},
+  {n:'Home · Juiz de Fora', s:'ok', w:'Sun 25 → Tue 27', d:['Vote on Sunday','Work Mon + Tue'], todo:[]}
+ ]},
+ {g:'Tickets', items:[
+  {n:'🎸 Macklemore · Red Rocks', s:'ok', w:'Thu 22 · doors 18:00 · show 19:00', d:['Row 4, seats 86–87 ("Rows 2 to 4")','AXS Mobile ID, non-transferable, both in Louisa\'s app','You enter together; bring your passport','Your half is ≈ US$240'], todo:['Install the AXS app before you fly'], links:[['Directions',dir('Red Rocks Amphitheatre, Morrison, CO')]]},
+  {n:'🎟️ Hospital of Emotions · LA', s:'ok', w:'Wed 21 · entry 13:00–13:10', d:['General admission, ≈ 2 h','2131 W 3rd St, Los Angeles','Non-refundable'], todo:[], links:[['Directions',dir('Hospital of Emotions, 2131 W 3rd St, Los Angeles')]]}
+ ]},
+ {g:'Ground', items:[
+  {n:'🚐 Transfer GIG → Juiz de Fora', s:'ok', w:'Sun 25 · pickup ≈ 04:30', d:['Booked outside email'], todo:['Save the pickup time + driver number on your phone','Check they monitor the CM486 arrival'], links:[]},
+  {n:'🚌 Cometa · Juiz de Fora → São Paulo', s:'ok', w:'Tue 27 20:30 → Wed 28 04:05 (Tietê)', d:['Leito-cama, seat 59, platform 11','Boarding pass in the Cometa email + photo ID'], todo:[], links:[['Directions',dir('Rodoviária de Juiz de Fora')]]},
+  {n:'Gatún Lake + Monkey Island tour', s:'todo', w:'Sat 24 · 07:30 pickup', d:['Not booked. Group ≈ US$79–99 + transfers, private ≈ US$135 pp for two'], todo:['Check Panama entry rules first','Get a solo quote; ask about the rain plan'], links:[]}
+ ]},
+ {g:'Cover', items:[
+  {n:'Travel insurance · Assist Card', s:'ok', w:'20–25 Oct', d:['LATAM 250 plan','Policy number + emergency line are in the Assist Card email/app'], todo:['Note: it ends on the 25th, after you\'re home in Brazil'], links:[]}
+ ]}
+];
+
+const WORK = [
+ ['Tue 20','São Paulo','10:00–16:00','From home, then the GRU lounge','full'],
+ ['Wed 21','Los Angeles','09:30–12:45 (+ email 16:30–19:00)','Lose 09:00–12:30 NY over the Pacific: two meetings in that window. Send updates in writing first.','part'],
+ ['Thu 22','Denver','07:00–15:00','Hotel. Show at 19:00 fits after.','full'],
+ ['Fri 23','Denver','07:00–15:00','Hotel (ask 15:00 checkout).','full'],
+ ['Sat 24','Panama','—','Weekend','off'],
+ ['Sun 25','Juiz de Fora','—','Election day','off'],
+ ['Mon 26','Juiz de Fora','10:00–18:00','Home','full'],
+ ['Tue 27','Juiz de Fora','10:00–18:00','Home, bus at 20:30','full']
+];
+
+const CHECK = [
+ ['lat','LATAM: fill travel documents + check in + seats','Do it before 16:00 today'],
+ ['axs','Install the AXS app','Louisa has both tickets; you enter together'],
+ ['visa','Passport + US visa valid through the trip','Visa must cover 21–23 Oct'],
+ ['ua','United check-in (from Tue 19:00 LA = 23:00 SP)',''],
+ ['meet','Send written updates for the Wed 09:00–12:30 NY meetings',''],
+ ['louisa','Ask Louisa: when does she pick up the rental car?','If Wed night at DEN, she can meet your 22:29 landing'],
+ ['room','Sort the Hyatt room with Louisa','Your booking is Wed–Fri; hers is Thu–Fri'],
+ ['late','Ask Hyatt for a 15:00 checkout on Fri',''],
+ ['copa','Copa check-in (from Thu 22:43 Denver)',''],
+ ['pan','Check Panama entry rules before booking the tour','See below'],
+ ['tour','Decide the Panama tour',''],
+ ['xfer','Save the GIG transfer pickup time + driver number',''],
+ ['vote','Vote on Sun 25 (photo ID / e-Título)','Polls 08:00–17:00']
+];
+const PACK = [
+ ['p-warm','Real warm layer + hat for Red Rocks','Outdoors at ~1,950 m, sitting still 18:00–23:00: see the hourly forecast below'],
+ ['p-carry','Pack to carry-on only','United + Copa are carry-on only; only LATAM includes checked bags'],
+ ['p-plug','US plug adapter (type A/B)',''],
+ ['p-dry','Dry bag for phone + passport','Panama boat in the wet season'],
+ ['p-cash','Some US$ cash','Tips, the Panama tour'],
+ ['p-water','Water bottle + lip balm','Denver is dry and high'],
+ ['p-id','Brazilian photo ID for voting','Plus the passport'],
+ ['p-yf','Yellow-fever card (ICV), just in case','Some countries ask travellers coming from Brazil'],
+ ['p-charge','Power bank + charging cables','Two overnight flights in a row']
+];
+
+const PLACES = [
+ {k:'sp', n:'São Paulo', d:'2026-10-20', lat:-23.55, lon:-46.63},
+ {k:'la', n:'Los Angeles', d:'2026-10-21', lat:34.06, lon:-118.27},
+ {k:'rr', n:'Red Rocks (show)', d:'2026-10-22', lat:39.665, lon:-105.206},
+ {k:'den', n:'Denver airport', d:'2026-10-23', lat:39.80, lon:-104.75},
+ {k:'pty', n:'Panama City', d:'2026-10-24', lat:8.98, lon:-79.52},
+ {k:'jf', n:'Juiz de Fora', d:'2026-10-25', lat:-21.76, lon:-43.35},
+ {k:'jf2', n:'Juiz de Fora', d:'2026-10-26', lat:-21.76, lon:-43.35},
+ {k:'sp2', n:'São Paulo', d:'2026-10-28', lat:-23.55, lon:-46.63}
+];
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const store = {get(k,d){try{const v=localStorage.getItem('rr:'+k);return v==null?d:JSON.parse(v)}catch(e){return d}}, set(k,v){try{localStorage.setItem('rr:'+k,JSON.stringify(v))}catch(e){}}};
+const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function addDay(iso,n){const d=new Date(iso+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+// Flatten events with absolute instants. An event time earlier than the previous one in the same day rolls nothing: days are listed in local order.
+const EV = [];
+DAYS.forEach((day,di) => day.ev.forEach((e,ei) => {
+  const z = Z[e.z || day.z];
+  const at = new Date(day.date + 'T' + e.t + ':00' + z);
+  let end = null;
+  if (e.end) end = new Date(day.date + 'T' + e.end + ':00' + z);
+  if (e.arr) { let ad = day.date; let a = new Date(ad + 'T' + e.arr + ':00' + Z[e.az]); if (a < at) a = new Date(addDay(ad,1) + 'T' + e.arr + ':00' + Z[e.az]); end = a; }
+  EV.push(Object.assign({}, e, {di, ei, at, end, z, date:day.date}));
+}));
+EV.sort((a,b) => a.at - b.at);
+function fmtIn(d, z){ // wall-clock in a fixed offset
+  const m = /([+-])(\d\d):(\d\d)/.exec(z); const off = (m[1]=='-'?-1:1)*(+m[2]*60 + +m[3]);
+  const t = new Date(d.getTime() + off*60000);
+  return {hh:String(t.getUTCHours()).padStart(2,'0'), mm:String(t.getUTCMinutes()).padStart(2,'0'), wd:WD[t.getUTCDay()], day:t.getUTCDate(), mo:MO[t.getUTCMonth()], iso:t.toISOString().slice(0,10)};
+}
+const NOW_Q = new URLSearchParams(location.search).get('now'); const NOW_OFF = NOW_Q ? new Date(NOW_Q) - Date.now() : 0;
+const _Date = Date; function nowD(){ return new _Date(_Date.now() + NOW_OFF); }
+const NY = '-04:00'; // EDT until 1 Nov
+function hereZone(now){ let z = Z.SP; for (const e of EV) { if (e.at <= now) { z = (e.end && e.end <= now && e.az) ? Z[e.az] : e.z; } } return z; }
+function dur(ms){ const m = Math.round(ms/60000); if (m < 60) return m + ' min'; const h = Math.floor(m/60), r = m%60; if (h < 48) return h + ' h' + (r ? ' ' + r : ''); return Math.round(h/24) + ' days'; }
+function linksHtml(links){ return links && links.length ? '<div class="btns">' + links.map(([l,u]) => '<a class="btn" href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(l)+'</a>').join('') + '</div>' : ''; }
+
+/* ---------- views ---------- */
+function renderToday(){
+  const now = nowD(), z = hereZone(now), here = fmtIn(now, z);
+  let cur = null, next = null;
+  for (const e of EV) { if (e.at <= now) cur = e; else { next = e; break; } }
+  if (cur && cur.end && cur.end <= now && !(cur.k==='fly')) cur = cur; // keep last started as context
+  const start = EV[0].at, last = EV[EV.length-1];
+  let h = '<div class="hero"><span class="eyebrow">20–28 October 2026</span><h1>Red Rocks Run</h1>'
+        + '<div class="route">São Paulo → Lima → Los Angeles → Denver → Panama → Rio → Juiz de Fora → São Paulo</div></div>';
+  const flying = EV.find(e => e.k==='fly' && e.at <= now && e.end > now);
+  const wheels = EV.find(e => e.k==='fly');
+  if (now < wheels.at) {
+    h += '<div class="card"><span class="eyebrow">Wheels up in</span><div class="big">' + dur(wheels.at-now) + '</div><p class="muted small">LA2425 · São Paulo 19:10</p></div>';
+  }
+  if (now < start) {
+  } else if (flying) {
+    h += '<div class="card hot"><span class="eyebrow">' + (/Cometa/.test(flying.n) ? 'On the bus' : 'In the air') + '</span><div class="big" style="font-size:38px;margin-top:6px">' + esc(flying.n.replace(/^(✈️|🚌)\s*/u,'')) + '</div><p class="muted">' + (/Cometa/.test(flying.n) ? 'Arrives in ' : 'Lands in ') + dur(flying.end-now) + ' · ' + fmtIn(flying.end, Z[flying.az]).hh + ':' + fmtIn(flying.end, Z[flying.az]).mm + ' local</p></div>';
+  } else if (now - last.at > 6*3600e3) {
+    $('#v-today').innerHTML = h + '<div class="card hot"><span class="eyebrow">Trip done</span><h3 style="margin-top:8px">Home in São Paulo. Welcome back.</h3></div>'; return;
+  } else if (cur) {
+    h += '<div class="card"><span class="eyebrow">Now · ' + here.hh + ':' + here.mm + ' ' + esc(ZN[z]||'') + '</span><h3 style="margin-top:8px">' + esc(cur.n) + '</h3>' + (cur.note ? '<p class="muted small">' + esc(cur.note) + '</p>' : '') + linksHtml(cur.links) + '</div>';
+  }
+  if (next) {
+    const nt = fmtIn(next.at, next.z);
+    h += '<div class="card hot"><span class="eyebrow">Next · in ' + dur(next.at-now) + '</span><div class="big" style="font-size:44px;margin-top:6px">' + nt.hh + ':' + nt.mm + '</div><h3 style="margin-top:8px">' + esc(next.n) + '</h3>' + (next.note ? '<p class="muted small">' + esc(next.note) + '</p>' : '') + linksHtml(next.links) + '</div>';
+    const after = EV.slice(EV.indexOf(next)+1, EV.indexOf(next)+4);
+    if (after.length) h += '<div class="card"><span class="eyebrow">After that</span>' + after.map(e => { const t = fmtIn(e.at, e.z); return '<div class="ev" style="border-bottom:0;padding:8px 0"><div class="tm">' + t.wd + ' ' + t.hh + ':' + t.mm + '</div><div class="nm">' + esc(e.n) + '</div></div>'; }).join('') + '</div>';
+  } else if (now > last.at) {
+    h += '<div class="card"><span class="eyebrow">Done</span><h3 style="margin-top:8px">Home in São Paulo. Welcome back.</h3></div>';
+  }
+  const ny = fmtIn(now, NY), sp = fmtIn(now, Z.SP);
+  h += '<div class="card"><span class="eyebrow">Clocks</span><dl class="kv" style="margin-top:8px"><dt>Here</dt><dd><b>' + here.hh + ':' + here.mm + '</b> ' + esc(ZN[z]||'') + '</dd><dt>New York</dt><dd>' + ny.hh + ':' + ny.mm + ' (work clock)</dd><dt>Brazil</dt><dd>' + sp.hh + ':' + sp.mm + '</dd></dl></div>';
+  const open = CHECK.filter(c => !checks[c[0]]).slice(0,3);
+  if (open.length) h += '<div class="card"><span class="eyebrow">Still to do</span><ul class="tight">' + open.map(c => '<li>' + esc(c[1]) + '</li>').join('') + '</ul><div class="btns"><button class="btn" data-go="prac">Full checklist</button></div></div>';
+  h += '<div id="todayWx"></div>';
+  $('#v-today').innerHTML = h;
+  todayWeather(here.iso);
+}
+
+function renderDays(){
+  const now = nowD(), todayIso = fmtIn(now, hereZone(now)).iso;
+  let h = '<h2 style="margin-top:22px">Day by day</h2><p class="muted small">Times are local where you are. Tap Directions to open Maps.</p>';
+  DAYS.forEach(day => {
+    const d = new Date(day.date + 'T12:00:00Z');
+    h += '<div class="day' + (day.date===todayIso?' is-today':'') + '" id="day-' + day.date + '"><div class="day-head"><div class="d">' + d.getUTCDate() + '<small>' + WD[d.getUTCDay()].toUpperCase() + '</small></div><div><div class="t">' + esc(day.title) + '</div><div class="muted small">' + esc(day.sub) + '</div></div></div>';
+    if (day.warn) h += '<div class="card hot small" style="margin-top:10px">⚠️ ' + esc(day.warn) + '</div>';
+    day.ev.forEach(e => {
+      const x = EV.find(v => v.date===day.date && v.t===e.t && v.n===e.n);
+      const isNow = x.at <= now && ((x.end && x.end > now) || (!x.end && (EV[EV.indexOf(x)+1]||{at:new Date(8.64e15)}).at > now));
+      const past = !isNow && (x.end || x.at) < now;
+      const zl = e.z && e.z !== day.z ? '<small>' + (ZN[Z[e.z]]||'') + '</small>' : '';
+      const end = e.end ? '<small>to ' + e.end + '</small>' : (e.arr ? '<small>→ ' + e.arr + '</small>' : '');
+      const pill = e.k==='todo' ? '<span class="pill todo">to do</span>' : '';
+      h += '<div class="ev' + (isNow?' now':'') + (past?' past':'') + '"><div class="tm">' + e.t + end + zl + '</div><div><div class="nm">' + esc(e.n) + pill + '</div>' + (e.note ? '<div class="nt">' + esc(e.note) + '</div>' : '') + linksHtml(e.links) + '</div></div>';
+    });
+    h += '</div>';
+  });
+  $('#v-days').innerHTML = h;
+}
+
+function renderBook(){
+  let h = '<h2 style="margin-top:22px">Bookings</h2><p class="muted small">What\'s booked, what\'s left. Confirmation codes stay in your email and apps.</p>';
+  BOOK.forEach(g => {
+    h += '<h3 style="margin-top:26px;color:var(--sand)">' + esc(g.g) + '</h3>';
+    g.items.forEach(b => {
+      h += '<div class="card"><div style="font-weight:700;font-size:17px">' + esc(b.n) + (b.s==='todo' ? '<span class="pill todo">not booked</span>' : '<span class="pill">booked</span>') + '</div><div class="muted small" style="margin-top:2px">' + esc(b.w) + '</div><ul class="tight small">' + b.d.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>'
+        + (b.todo.length ? '<div class="small" style="margin-top:8px"><b style="color:var(--warn)">To do</b><ul class="tight">' + b.todo.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') + linksHtml(b.links) + '</div>';
+    });
+  });
+  $('#v-book').innerHTML = h;
+}
+
+function renderWork(){
+  let h = '<h2 style="margin-top:22px">Work hours</h2><p class="muted small">Your day is 09:00–17:00 New York throughout. The US stays on daylight time until 1 Nov; Brazil has none.</p>';
+  h += '<div class="card"><dl class="kv"><dt>São Paulo / Rio / JF</dt><dd>10:00–18:00 (NY + 1 h)</dd><dt>Lima</dt><dd>08:00–16:00 (NY − 1 h)</dd><dt>Los Angeles</dt><dd>06:00–14:00 (NY − 3 h)</dd><dt>Denver</dt><dd>07:00–15:00 (NY − 2 h)</dd><dt>Panama</dt><dd>08:00–16:00 (NY − 1 h)</dd></dl></div>';
+  h += '<div class="scroll" style="margin-top:14px"><table><thead><tr><th>Day</th><th>Where</th><th>Local hours</th><th>Notes</th></tr></thead><tbody>'
+    + WORK.map(r => '<tr><td class="n"><b>' + r[0] + '</b></td><td>' + esc(r[1]) + '</td><td class="n">' + esc(r[2]) + (r[4]==='part' ? ' <span class="pill risk">partial</span>' : r[4]==='off' ? ' <span class="pill info">off</span>' : '') + '</td><td class="muted">' + esc(r[3]) + '</td></tr>').join('')
+    + '</tbody></table></div>';
+  h += '<div class="card hot small" style="margin-top:14px"><b>Wednesday 21 is the gap.</b> 09:00–12:30 NY you are over the Pacific (06:00–09:30 LA). You\'re back online 09:30 LA = 12:30 NY, and the museum takes 13:00–15:00 LA (16:00–18:00 NY, after hours).</div>';
+  $('#v-work').innerHTML = h;
+}
+
+let checks = store.get('checks', {});
+function chkList(list){ return list.map(([id,t,s]) => '<label class="chk' + (checks[id]?' done':'') + '"><input type="checkbox" data-c="' + id + '"' + (checks[id]?' checked':'') + '><span>' + esc(t) + (s ? '<small>' + esc(s) + '</small>' : '') + '</span></label>').join(''); }
+function renderPrac(){
+  let h = '<h2 style="margin-top:22px">Practical</h2>';
+  h += '<h3 style="margin-top:18px;color:var(--sand)">Checklist</h3>' + chkList(CHECK);
+  h += '<h3 style="margin-top:26px;color:var(--sand)">Packing</h3>' + chkList(PACK);
+  h += '<h3 style="margin-top:26px;color:var(--sand)">Weather</h3><p class="muted small">Live forecast for the day you\'re in each place (Open-Meteo, updates when online).</p><div class="wx" id="wx"></div><div id="rrHours"></div>';
+  h += '<details><summary>🎸 Red Rocks: what decides the night</summary><div class="small"><ul class="tight">'
+    + '<li>Both tickets are in Louisa\'s AXS app and non-transferable: walk in together, passport in hand.</li>'
+    + '<li>≈ 1,950 m, open to the sky. It cools fast after dark and you sit still 18:00–23:00: check the hourly forecast above and bring a real warm layer.</li>'
+    + '<li>The lots fill early and the walk up to the seats is steep: leaving at 16:45 is right.</li>'
+    + '<li>Altitude + dry air: drink water, go easy on alcohol.</li>'
+    + '<li>Check the bag policy on the Red Rocks event page (small clear bags are the norm).</li></ul></div></details>';
+  h += '<details><summary>🇵🇦 Panama: before you leave the airport</summary><div class="small"><p>Leaving Tocumen for the tour is a real entry into Panama. Not yet checked against an official source, so confirm with Panama\'s migration service (Migración Panamá) before you pay an operator:</p><ul class="tight">'
+    + '<li>Does a Brazilian passport need anything for a same-day tourist entry?</li>'
+    + '<li>Is a yellow-fever certificate asked for on arrival from Brazil? (You arrive from Denver, which may help, but carry the ICV.)</li>'
+    + '<li>Proof of onward travel: yours is the same evening.</li></ul><p>If any answer is a problem: stay airside 13 h, nothing lost. Late October is wet season (≈ 29°/24°, rain likely).</p><div class="btns"><a class="btn" href="https://www.migracion.gob.pa/" target="_blank" rel="noopener">Migración Panamá</a></div></div></details>';
+  h += '<details><summary>🇺🇸 US entry + money</summary><div class="small"><ul class="tight">'
+    + '<li>Brazilians need a valid US visa (B1/B2) in the passport: must cover 21–23 Oct.</li>'
+    + '<li>Budget rate ≈ R$5.31 per US$ (spot + card IOF).</li>'
+    + '<li>Tipping: 18–20 % at sit-down places; Uber tip in the app.</li>'
+    + '<li>Plugs: type A/B, 120 V.</li></ul></div></details>';
+  h += '<details><summary>🗳️ Voting on Sunday 25</summary><div class="small"><ul class="tight"><li>2nd round, polls 08:00–17:00 Brasília time.</li><li>Bring an official photo ID or use the e-Título app.</li><li>You land 04:05 and should be home 08:00–09:30: comfortable, as long as the transfer runs.</li></ul></div></details>';
+  h += '<details><summary>🆘 Emergencies</summary><div class="small"><dl class="kv"><dt>USA</dt><dd>911</dd><dt>Panama</dt><dd>911</dd><dt>Brazil</dt><dd>190 police · 192 ambulance</dd><dt>Insurance</dt><dd>Assist Card app / email (covers 20–25 Oct)</dd><dt>Hyatt Place DEN</dt><dd><a href="tel:+13033710700">+1 303-371-0700</a></dd></dl></div></details>';
+  $('#v-prac').innerHTML = h;
+  renderWx();
+}
+document.addEventListener('change', e => { const id = e.target.dataset && e.target.dataset.c; if (!id) return; checks[id] = e.target.checked; store.set('checks', checks); e.target.closest('.chk').classList.toggle('done', e.target.checked); });
+
+/* ---------- weather (Open-Meteo, no key) ---------- */
+const WMO = c => c==null?'':c<=1?'☀️':c<=3?'⛅':c<=48?'🌫️':c<=67?'🌧️':c<=77?'🌨️':c<=82?'🌦️':'⛈️';
+let wx = store.get('wx', null);
+async function loadWx(force){
+  if (!force && wx && Date.now() - wx.t < 3*3600e3) return wx;
+  try {
+    const lat = PLACES.map(p=>p.lat).join(','), lon = PLACES.map(p=>p.lon).join(',');
+    const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&hourly=temperature_2m,weather_code&timezone=auto&forecast_days=16');
+    const j = await r.json(); const arr = Array.isArray(j) ? j : [j];
+    const out = {t:Date.now(), p:{}};
+    PLACES.forEach((p,i) => { const d = arr[i].daily, k = d.time.indexOf(p.d); if (k>=0) out.p[p.k] = {hi:Math.round(d.temperature_2m_max[k]), lo:Math.round(d.temperature_2m_min[k]), rain:d.precipitation_probability_max[k], code:d.weather_code[k]};
+      if (p.k==='rr') { const H = arr[i].hourly; out.rr = []; H.time.forEach((t,x) => { if (t.startsWith(p.d) && +t.slice(11,13) >= 18 && +t.slice(11,13) <= 23) out.rr.push([t.slice(11,16), Math.round(H.temperature_2m[x]), H.weather_code[x]]); }); } });
+    wx = out; store.set('wx', wx);
+  } catch (e) {}
+  return wx;
+}
+function wxCard(p){ const w = wx && wx.p[p.k]; const d = new Date(p.d+'T12:00:00Z');
+  return '<div class="card"><div class="small muted">' + WD[d.getUTCDay()] + ' ' + d.getUTCDate() + ' Oct</div><div style="font-weight:700">' + esc(p.n) + '</div>' + (w ? '<div class="t">' + WMO(w.code) + ' ' + w.hi + '°</div><div class="small muted">low ' + w.lo + '° · rain ' + (w.rain==null?'–':w.rain+'%') + '</div>' : '<div class="small muted">Forecast not in range yet</div>') + '</div>'; }
+async function renderWx(){ await loadWx(); const el = $('#wx'); if (!el) return; el.innerHTML = PLACES.filter(p=>p.k!=='jf2').map(wxCard).join('');
+  const rr = $('#rrHours'); if (rr && wx && wx.rr && wx.rr.length) rr.innerHTML = '<div class="card hot small"><b>Red Rocks, Thu evening</b><div class="btns" style="margin-top:8px">' + wx.rr.map(([t,c,w]) => '<span class="btn" style="cursor:default">' + t + ' ' + WMO(w) + ' ' + c + '°</span>').join('') + '</div></div>'; }
+async function todayWeather(iso){ await loadWx(); const el = $('#todayWx'); if (!el || !wx) return; const ps = PLACES.filter(p => p.d === iso); if (!ps.length) return;
+  el.innerHTML = '<div class="wx">' + ps.map(wxCard).join('') + '</div>'; }
+
+/* ---------- shell ---------- */
+const VIEWS = {today:renderToday, days:renderDays, book:renderBook, work:renderWork, prac:renderPrac};
+const TITLES = {today:'Red Rocks Run', days:'Day by day', book:'Bookings', work:'Work hours', prac:'Practical'};
+let cur = null;
+function go(v, push){
+  if (!VIEWS[v]) v = 'today';
+  document.querySelectorAll('.view').forEach(s => s.hidden = s.id !== 'v-' + v);
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.v === v));
+  $('#barTitle').textContent = TITLES[v];
+  VIEWS[v](); cur = v;
+  if (push !== false && location.hash !== '#' + v) history.pushState(null, '', '#' + v);
+  window.scrollTo(0,0);
+  if (v === 'days') { const now = nowD(), iso = fmtIn(now, hereZone(now)).iso, el = document.getElementById('day-' + iso); if (el) setTimeout(() => el.scrollIntoView({block:'start'}), 30); }
+}
+document.addEventListener('click', e => { const t = e.target.closest('[data-v],[data-go]'); if (t) go(t.dataset.v || t.dataset.go); });
+window.addEventListener('popstate', () => go(location.hash.slice(1), false));
+function tick(){ const now = nowD(), z = hereZone(now), h = fmtIn(now, z), ny = fmtIn(now, NY);
+  $('#clock').innerHTML = '<b>' + h.hh + ':' + h.mm + '</b> here<br>' + ny.hh + ':' + ny.mm + ' NY'; }
+tick(); setInterval(() => { tick(); if (cur === 'today') renderToday(); }, 60000);
+go(location.hash.slice(1) || 'today', false);
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('sw.js').catch(()=>{});
+})();
+</script>
+</html>
