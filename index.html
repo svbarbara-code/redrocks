@@ -60,7 +60,15 @@ h3{font-size:24px;margin:0 0 6px}
 .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:6px;padding:2px 7px;vertical-align:2px;margin-left:6px;color:#fff;background:var(--ok)}
 .pill.todo{background:var(--warn);color:#111} .pill.risk{background:var(--rock);color:#fff} .pill.info{background:var(--sky)}
 /* timeline */
-.day{margin-top:26px;scroll-margin-top:calc(70px + env(safe-area-inset-top,0px))}
+.day{margin-top:26px;scroll-margin-top:calc(var(--barH,68px) + 64px)}
+.daybar{position:sticky;top:var(--barH,68px);z-index:4;background:var(--night);margin:0 -16px;padding:8px 16px;border-bottom:1px solid var(--rule);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.daybar::-webkit-scrollbar{display:none}
+.dchip{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:44px;min-height:46px;padding:4px 6px;border-radius:10px;border:1.5px solid var(--rule);background:var(--dusk);line-height:1}
+.dchip b{font-family:var(--display);font-size:20px;font-weight:700}
+.dchip small{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--sage);margin-top:3px}
+.dchip.today{border-color:var(--sand)}
+.dchip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.dchip.on small{color:#E8293B}
 .day-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:8px}
 .day-head .d{font-family:var(--display);font-weight:700;font-size:44px;line-height:.85;color:var(--ember);min-width:64px}
 .day-head .d small{display:block;font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--sage);margin-top:6px}
@@ -347,7 +355,8 @@ function renderToday(){
 
 function renderDays(){
   const now = nowD(), todayIso = fmtIn(now, hereZone(now)).iso;
-  let h = '<h2 style="margin-top:22px">Day by day</h2><p class="muted small">Times are local where you are. Tap Directions to open Maps.</p>';
+  let h = '<nav class="daybar" aria-label="Jump to day">' + DAYS.map(day => { const d = new Date(day.date + 'T12:00:00Z'); return '<button class="dchip' + (day.date===todayIso?' today':'') + '" data-day="' + day.date + '"><b>' + d.getUTCDate() + '</b><small>' + WD[d.getUTCDay()].toUpperCase() + '</small></button>'; }).join('') + '</nav>';
+  h += '<h2 style="margin-top:22px">Day by day</h2><p class="muted small">Times are local where you are. Tap Directions to open Maps.</p>';
   DAYS.forEach(day => {
     const d = new Date(day.date + 'T12:00:00Z');
     h += '<div class="day' + (day.date===todayIso?' is-today':'') + '" id="day-' + day.date + '"><div class="day-head"><div class="d">' + d.getUTCDate() + '<small>' + WD[d.getUTCDay()].toUpperCase() + '</small></div><div><div class="t">' + esc(day.title) + '</div><div class="muted small">' + esc(day.sub) + '</div></div></div>';
@@ -364,6 +373,7 @@ function renderDays(){
     h += '</div>';
   });
   $('#v-days').innerHTML = h;
+  daySpy();
 }
 
 function renderBook(){
@@ -452,8 +462,17 @@ function go(v, push){
   VIEWS[v](); cur = v;
   if (push !== false && location.hash !== '#' + v) history.pushState(null, '', '#' + v);
   window.scrollTo(0,0);
-  if (v === 'days') { const now = nowD(), iso = fmtIn(now, hereZone(now)).iso, el = document.getElementById('day-' + iso); if (el) setTimeout(() => el.scrollIntoView({block:'start'}), 30); }
+  if (v === 'days') { const now = nowD(), iso = fmtIn(now, hereZone(now)).iso, el = document.getElementById('day-' + iso); setTimeout(() => { setBarH(); if (el) jumpDay(iso); else markDay(DAYS[0].date); }, 30); }
 }
+function setBarH(){ document.documentElement.style.setProperty('--barH', $('.bar').offsetHeight + 'px'); }
+function markDay(iso){ document.querySelectorAll('.dchip').forEach(c => { const on = c.dataset.day === iso; c.classList.toggle('on', on); if (on) c.scrollIntoView({inline:'center', block:'nearest'}); }); }
+function jumpDay(iso){ const el = document.getElementById('day-' + iso); if (el) { el.scrollIntoView({block:'start'}); markDay(iso); } }
+let spyT;
+function daySpy(){ if (cur !== 'days' && !document.querySelector('#v-days:not([hidden])')) return; const lim = $('.bar').offsetHeight + 80; let iso = DAYS[0].date;
+  document.querySelectorAll('.day').forEach(d => { if (d.getBoundingClientRect().top <= lim) iso = d.id.slice(4); }); markDay(iso); }
+window.addEventListener('scroll', () => { clearTimeout(spyT); spyT = setTimeout(daySpy, 80); }, {passive:true});
+window.addEventListener('resize', setBarH); setBarH();
+document.addEventListener('click', e => { const dc = e.target.closest('[data-day]'); if (dc) { jumpDay(dc.dataset.day); return; } });
 document.addEventListener('click', e => { const t = e.target.closest('[data-v],[data-go]'); if (t) go(t.dataset.v || t.dataset.go); });
 window.addEventListener('popstate', () => go(location.hash.slice(1), false));
 function tick(){ const now = nowD(), z = hereZone(now), h = fmtIn(now, z), ny = fmtIn(now, NY);
