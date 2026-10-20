@@ -180,7 +180,7 @@ const DAYS = [
  ]},
  {date:'2026-10-25', z:'RIO', title:'Election day 🗳️ · Rio → Juiz de Fora', sub:'Sunday · 2nd round', ev:[
   {t:'04:05', n:'Land Rio Galeão (GIG)', note:'Second round of the 2026 election is today.', k:'air'},
-  {t:'04:30', n:'🚐 Transfer GIG → Juiz de Fora (booked)', note:'Booked outside email. Add the pickup time and driver contact to your phone notes.', k:'go', links:[['Directions',dir('Juiz de Fora, MG')]]},
+  {t:'04:30', n:'🚗 Parents pick you up → Juiz de Fora', note:'Meet them at arrivals once you\'re through. Send them the CM486 flight status before you board in Panama, so they know if it slips.', k:'go', links:[['Directions',dir('Juiz de Fora, MG')]]},
   {t:'08:00', n:'🏠 Home, Juiz de Fora', note:'Arrive ≈ 08:00–09:30.', k:'home'},
   {t:'09:30', n:'🗳️ Vote', note:'Polls 08:00–17:00. Take a photo ID (or the e-Título app).', k:'todo'}
  ]},
@@ -213,7 +213,7 @@ const BOOK = [
   {n:'🎟️ Hospital of Emotions · LA', s:'ok', w:'Wed 21 · entry 13:00–13:10', d:['General admission, ≈ 2 h','2131 W 3rd St, Los Angeles','Non-refundable'], todo:[], links:[['Directions',dir('Hospital of Emotions, 2131 W 3rd St, Los Angeles')]]}
  ]},
  {g:'Ground', items:[
-  {n:'🚐 Transfer GIG → Juiz de Fora', s:'ok', w:'Sun 25 · pickup ≈ 04:30', d:['Booked outside email'], todo:['Save the pickup time + driver number on your phone','Check they monitor the CM486 arrival'], links:[]},
+  {n:'🚗 Parents · GIG → Juiz de Fora', s:'ok', w:'Sun 25 · meet at arrivals ≈ 04:30', d:['Your parents pick you up at Rio Galeão'], todo:['Send them the CM486 flight status from Panama','Message them when you land and again after customs'], links:[]},
   {n:'🚌 Cometa · Juiz de Fora → São Paulo', s:'ok', w:'Tue 27 20:30 → Wed 28 04:05 (Tietê)', d:['Leito-cama, seat 59, platform 11','Boarding pass in the Cometa email + photo ID'], todo:[], links:[['Directions',dir('Rodoviária de Juiz de Fora')]]},
   {n:'Gatún Lake + Monkey Island tour', s:'todo', w:'Sat 24 · 07:30 pickup', d:['Not booked. Group ≈ US$79–99 + transfers, private ≈ US$135 pp for two'], todo:['Check Panama entry rules first','Get a solo quote; ask about the rain plan'], links:[]}
  ]},
@@ -244,7 +244,7 @@ const CHECK = [
  ['copa','Copa check-in (from Thu 22:43 Denver)',''],
  ['pan','Check Panama entry rules before booking the tour','See below'],
  ['tour','Decide the Panama tour',''],
- ['xfer','Save the GIG transfer pickup time + driver number',''],
+ ['xfer','Send your parents the CM486 status before boarding in Panama','They pick you up at GIG ≈ 04:30'],
  ['vote','Vote on Sun 25 (photo ID / e-Título)','Polls 08:00–17:00']
 ];
 const PACK = [
@@ -403,7 +403,7 @@ function renderPrac(){
     + '<li>Budget rate ≈ R$5.31 per US$ (spot + card IOF).</li>'
     + '<li>Tipping: 18–20 % at sit-down places; Uber tip in the app.</li>'
     + '<li>Plugs: type A/B, 120 V.</li></ul></div></details>';
-  h += '<details><summary>🗳️ Voting on Sunday 25</summary><div class="small"><ul class="tight"><li>2nd round, polls 08:00–17:00 Brasília time.</li><li>Bring an official photo ID or use the e-Título app.</li><li>You land 04:05 and should be home 08:00–09:30: comfortable, as long as the transfer runs.</li></ul></div></details>';
+  h += '<details><summary>🗳️ Voting on Sunday 25</summary><div class="small"><ul class="tight"><li>2nd round, polls 08:00–17:00 Brasília time.</li><li>Bring an official photo ID or use the e-Título app.</li><li>You land 04:05 and your parents drive you home for ≈ 08:00–09:30: comfortable.</li></ul></div></details>';
   h += '<details><summary>🆘 Emergencies</summary><div class="small"><dl class="kv"><dt>USA</dt><dd>911</dd><dt>Panama</dt><dd>911</dd><dt>Brazil</dt><dd>190 police · 192 ambulance</dd><dt>Insurance</dt><dd>Assist Card app / email (covers 20–25 Oct)</dd><dt>Hyatt Place DEN</dt><dd><a href="tel:+13033710700">+1 303-371-0700</a></dd></dl></div></details>';
   $('#v-prac').innerHTML = h;
   renderWx();
