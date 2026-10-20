@@ -75,6 +75,35 @@ h3{font-size:24px;margin:0 0 6px}
 .song .no{font-family:var(--display);font-weight:700;font-size:20px;color:var(--ember);text-align:right}
 .song .tt{font-weight:700} .song .ft{font-size:13px;color:var(--sage)}
 .sp{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#fff;background:#1DB954;border-radius:999px;padding:7px 12px;text-decoration:none;white-space:nowrap}
+.bagwrap{display:grid;grid-template-columns:1fr;gap:14px;margin-top:12px}
+.bag{position:relative;border-radius:22px;padding:30px 14px 16px;min-height:150px;border:3px solid var(--ink);background:linear-gradient(#fff,#fff) padding-box}
+.bag.cabin{background:#1c1c1c;color:#fff;border-color:#1c1c1c;border-radius:20px;margin-top:22px}
+.bag.cabin::before{content:"";position:absolute;left:50%;top:-24px;width:84px;height:24px;margin-left:-42px;border:5px solid #1c1c1c;border-bottom:0;border-radius:14px 14px 0 0}
+.bag.cabin::after{content:"";position:absolute;left:0;right:0;top:12px;height:12px;background:var(--tatreez) repeat-x;background-size:24px 12px;opacity:.95;filter:invert(0)}
+.bag .wheels{position:absolute;bottom:-12px;left:22px;right:22px;display:flex;justify-content:space-between}
+.bag .wheels i{width:18px;height:18px;border-radius:50%;background:#444;border:3px solid #1c1c1c}
+.bag.under{background:#007A3D;color:#fff;border-color:#00552a;border-radius:30px 30px 20px 20px}
+.bag.under{padding-top:26px}.bag.under::before{content:"";position:absolute;left:22%;right:22%;top:0;height:12px;border-radius:0 0 20px 20px;background:#00552a}
+.bag.wear{background:#fff;border-style:dashed;border-color:var(--rock);color:var(--mist)}
+.bag h4{margin:0 0 8px;font-family:var(--display);font-size:20px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.bag h4 small{font-family:var(--body);font-size:12px;font-weight:700;opacity:.85}
+.slots{display:flex;flex-wrap:wrap;gap:8px;min-height:52px}
+.it{display:flex;flex-direction:column;align-items:center;justify-content:center;width:64px;height:64px;border-radius:14px;font-size:28px;line-height:1;background:rgba(255,255,255,.12);border:2px dashed rgba(255,255,255,.35);cursor:pointer;transition:transform .15s}
+.it span{font-size:9.5px;font-weight:700;margin-top:4px;text-align:center;line-height:1.05;max-width:60px;font-family:var(--body)}
+.it.in{background:#fff;color:#141414;border:2px solid #fff;animation:pop .35s ease}
+.bag.wear .it{background:#F4EEE1;border-color:var(--rule)} .bag.wear .it.in{border-color:var(--rock)}
+@keyframes pop{0%{transform:scale(.4) rotate(-12deg)}70%{transform:scale(1.12)}100%{transform:scale(1)}}
+.bed{margin-top:16px;background:var(--dusk);border-radius:16px;padding:12px;border:2px solid var(--rule)}
+.bed .it{background:#F4EEE1;border:2px solid var(--rule);color:#141414}
+.bed .it:active,.it:active{transform:scale(.92)}
+.gauge{height:12px;border-radius:999px;background:rgba(255,255,255,.2);overflow:hidden;margin:2px 0 10px}
+.gauge b{display:block;height:100%;background:var(--rock);transition:width .3s}
+.bag.wear .gauge{background:var(--rule)}
+.packhead{display:flex;align-items:center;gap:12px;margin-top:10px}
+.packhead .big{font-size:42px}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.confetti i{position:absolute;top:-20px;width:10px;height:14px;animation:fall 2.2s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
 .enc{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sand);padding:14px 0 4px}
 .day-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--rule);padding-bottom:8px}
 .day-head .d{font-family:var(--display);font-weight:700;font-size:44px;line-height:.85;color:var(--ember);min-width:64px}
@@ -291,6 +320,20 @@ const SETLIST = [
  ['Can\'t Hold Us','Macklemore & Ryan Lewis feat. Ray Dalton','Can\'t Hold Us Macklemore Ryan Lewis Ray Dalton']
 ];
 const sp = q => 'https://open.spotify.com/search/' + encodeURIComponent(q);
+const VIS = {
+ 'p-warm':['🧥','Warm layer','wear',0.8], 'p-rain':['☔','Rain jacket','cabin',0.3], 'p-tops':['👚','4 tops + show top','cabin',1.0],
+ 'p-bottoms':['👖','Trousers + shorts','cabin',1.2], 'p-under':['🧦','Undies × 5','cabin',0.5], 'p-shoes':['🩴','Sandals','cabin',0.5],
+ 'p-sleep':['😴','Pyjamas','cabin',0.3], 'p-kit':['🩹','First aid','cabin',0.2], 'p-dry':['💧','Dry bag','cabin',0.1],
+ 'p-pass':['🛂','Passport + visa','under',0.1], 'p-id':['🪪','ID to vote','under',0.05], 'p-yf':['💉','Yellow-fever card','under',0.02],
+ 'p-ins':['🩺','Insurance info','under',0], 'p-card':['💳','Cards + US$','under',0.05], 'p-laptop':['💻','Laptop','under',1.6],
+ 'p-head':['🎧','Headphones','under',0.2], 'p-plug':['🔌','US adapter','under',0.1], 'p-charge':['⚡','Chargers','under',0.3],
+ 'p-bat':['🔋','Power bank','under',0.3], 'p-liq':['🧴','Liquids bag','under',0.6], 'p-sun':['🌞','Sunscreen + spray','under',0.2],
+ 'p-meds':['💊','Medicines','under',0.2], 'p-lip':['💄','Lip balm','under',0.05], 'p-pillow':['🦒','Neck pillow + mask','wear',0.3],
+ 'p-bottle':['🥤','Water bottle','under',0.2], 'p-snack':['🍫','Snacks','under',0.3], 'p-pen':['🖊️','Pen','under',0.02],
+ 'p-carry':['🧳','Bag check ≤ 10 kg','rule',0]
+};
+const BAGS = [['cabin','🧳 Cabin bag','≤ 10 kg (Copa)',10,2.6],['under','🎒 Under-seat bag','fits under the seat',null,0.7],['wear','🧍 Wear it on the plane','frees up space',null,0]];
+const QUIPS = ['Your bag is echoing. 👀','A good start: the sandals feel lonely though.','Halfway! Red Rocks is getting closer. 🎸','Almost: don\'t forget the boring stuff (chargers!).','One more push…','Zip it! You\'re ready. 🇵🇸🎉'];
 const PACK = [
  {g:'Bag rules', items:[
   ['p-carry','One cabin bag + one under-seat bag','United and Copa include no checked bag; Copa allows 10 kg in the cabin (LATAM 12 kg), so aim for ≤ 10 kg'],
@@ -465,6 +508,36 @@ function renderShow(){
   $('#v-show').innerHTML = h;
 }
 
+function renderPackViz(burst){
+  const el = $('#packviz'); if (!el) return;
+  const ids = Object.keys(VIS).filter(id => VIS[id][2] !== 'rule');
+  const done = ids.filter(id => checks[id]).length, pct = Math.round(100 * done / ids.length);
+  const q = QUIPS[Math.min(QUIPS.length - 1, Math.floor(pct / 20))];
+  const tile = (id, inBag) => '<button class="it' + (inBag ? ' in' : '') + '" data-pk="' + id + '" aria-label="' + (inBag ? 'Unpack ' : 'Pack ') + esc(VIS[id][1]) + '">' + VIS[id][0] + '<span>' + esc(VIS[id][1]) + '</span></button>';
+  let h = '<div class="packhead"><div class="big">' + pct + '%</div><div><b>' + done + ' of ' + ids.length + ' packed</b><div class="muted small">' + esc(q) + '</div></div></div>';
+  h += '<p class="muted small" style="margin:6px 0 0">Tap an item on the bed to pack it; tap it in the bag to take it out.</p><div class="bagwrap">';
+  BAGS.forEach(([b, name, sub, lim, tare]) => {
+    const inIds = ids.filter(id => VIS[id][2] === b && checks[id]), all = ids.filter(id => VIS[id][2] === b);
+    const kg = tare + inIds.reduce((a, id) => a + VIS[id][3], 0);
+    h += '<div class="bag ' + b + '"><h4>' + name + '<small>' + inIds.length + '/' + all.length + (b !== 'wear' ? ' · ≈ ' + kg.toFixed(1) + ' kg' : '') + '</small></h4>';
+    if (lim) h += '<div class="gauge" title="estimated weight"><b style="width:' + Math.min(100, 100 * kg / lim) + '%;' + (kg > lim ? 'background:#E8293B' : '') + '"></b></div>';
+    h += '<div class="slots">' + (inIds.length ? inIds.map(id => tile(id, true)).join('') : '<span class="small" style="opacity:.75">Empty: ' + esc(sub) + '</span>') + '</div>';
+    if (b === 'cabin') h += '<div class="wheels"><i></i><i></i></div>';
+    h += '</div>';
+  });
+  const left = ids.filter(id => !checks[id]);
+  h += '</div><div class="bed"><b>🛏️ Still on the bed (' + left.length + ')</b><div class="slots" style="margin-top:8px">' + (left.length ? left.map(id => tile(id, false)).join('') : '<span class="small muted">Nothing left. Go zip it.</span>') + '</div></div>';
+  h += '<p class="muted small">Weights are rough estimates (empty cabin bag ≈ 2.6 kg) to keep you under Copa\'s 10 kg.</p>';
+  el.innerHTML = h;
+  if (burst && pct === 100) confetti();
+}
+function confetti(){ const c = document.createElement('div'); c.className = 'confetti'; const cols = ['#111','#fff','#007A3D','#CE1126'];
+  for (let i = 0; i < 90; i++) { const d = document.createElement('i'); d.style.left = Math.random()*100 + 'vw'; d.style.background = cols[i % 4]; d.style.animationDelay = Math.random()*0.8 + 's'; d.style.border = '1px solid #ccc'; c.appendChild(d); }
+  document.body.appendChild(c); setTimeout(() => c.remove(), 3500); }
+document.addEventListener('click', e => { const t = e.target.closest('[data-pk]'); if (!t) return; const id = t.dataset.pk; checks[id] = !checks[id]; store.set('checks', checks);
+  if (navigator.vibrate) navigator.vibrate(12); renderPackViz(true);
+  document.querySelectorAll('input[data-c="' + id + '"]').forEach(x => { x.checked = !!checks[id]; x.closest('.chk').classList.toggle('done', !!checks[id]); }); });
+
 let checks = store.get('checks', {});
 function chkList(list){ return list.map(([id,t,s]) => '<label class="chk' + (checks[id]?' done':'') + '"><input type="checkbox" data-c="' + id + '"' + (checks[id]?' checked':'') + '><span>' + esc(t) + (s ? '<small>' + esc(s) + '</small>' : '') + '</span></label>').join(''); }
 function renderPrac(){
@@ -472,7 +545,8 @@ function renderPrac(){
   let h = '<nav class="daybar" aria-label="Jump to topic">' + T.map(([id,l]) => '<button class="dchip txt" data-jump="' + id + '">' + l + '</button>').join('') + '</nav>';
   h += '<h2 style="margin-top:22px">Practical</h2>';
   h += '<h3 class="jsec" id="ck" style="margin-top:18px;color:var(--sand)">Checklist</h3>' + chkList(CHECK);
-  h += '<h3 class="jsec" id="pk" style="margin-top:26px;color:var(--sand)">Carry-on packing</h3><p class="muted small">Everything has to fit a cabin bag + under-seat bag (≈ 10 kg). Ticks are saved on this phone.</p>' + PACK.map(g => '<div style="font-weight:700;margin-top:14px">' + esc(g.g) + ' <span class="muted small">' + g.items.filter(x => checks[x[0]]).length + '/' + g.items.length + '</span></div>' + chkList(g.items)).join('');
+  h += '<h3 class="jsec" id="pk" style="margin-top:26px;color:var(--sand)">Carry-on packing</h3><div id="packviz"></div>';
+  h += '<details style="margin-top:12px"><summary>📝 Packing as a list + the bag rules</summary><div>' + PACK.map(g => '<div style="font-weight:700;margin-top:14px">' + esc(g.g) + ' <span class="muted small">' + g.items.filter(x => checks[x[0]]).length + '/' + g.items.length + '</span></div>' + chkList(g.items)).join('') + '</div></details>';
   h += '<h3 class="jsec" id="wxs" style="margin-top:26px;color:var(--sand)">Weather</h3><p class="muted small">Live forecast for the day you\'re in each place (Open-Meteo, updates when online).</p><div class="wx" id="wx"></div><div id="rrHours"></div>';
   h += '<details class="jsec" id="rr"><summary>🎸 Red Rocks: what decides the night</summary><div class="small"><ul class="tight">'
     + '<li>Both tickets are in Kat\'s AXS app and non-transferable: walk in together, passport in hand.</li>'
@@ -492,7 +566,7 @@ function renderPrac(){
   h += '<details class="jsec" id="vote"><summary>🗳️ Voting on Sunday 25</summary><div class="small"><ul class="tight"><li>2nd round, polls 08:00–17:00 Brasília time.</li><li>Bring an official photo ID or use the e-Título app.</li><li>You land 04:05 and your parents drive you home for ≈ 08:00–09:30: comfortable.</li></ul></div></details>';
   h += '<details class="jsec" id="sos"><summary>🆘 Emergencies</summary><div class="small"><dl class="kv"><dt>USA</dt><dd>911</dd><dt>Panama</dt><dd>911</dd><dt>Brazil</dt><dd>190 police · 192 ambulance</dd><dt>Insurance</dt><dd>Assist Card · <a href="tel:+551131918699">+55 11 3191 8699</a> · US <a href="tel:+18008742223">1 800 874 2223</a> · no. 550 34057611 0L30 LA155 / 1 (call before going to an ER)</dd><dt>Hyatt Place DEN</dt><dd><a href="tel:+13033710700">+1 303-371-0700</a></dd></dl></div></details>';
   $('#v-prac').innerHTML = h;
-  renderWx(); spy();
+  renderPackViz(); renderWx(); spy();
 }
 document.addEventListener('change', e => { const id = e.target.dataset && e.target.dataset.c; if (!id) return; checks[id] = e.target.checked; store.set('checks', checks); e.target.closest('.chk').classList.toggle('done', e.target.checked); if (cur === 'prac') { const y = scrollY; renderPrac(); scrollTo(0, y); } });
 
