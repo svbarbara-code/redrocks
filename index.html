@@ -168,19 +168,19 @@ const DAYS = [
   {t:'15:30', n:'Collect bag → Uber to LAX', note:'≈ US$45, at LAX around 16:30.', k:'go', links:[['Directions',dir('LAX Terminal 7 United')]]},
   {t:'16:30', n:'LAX · email from the gate', note:'Your real catch-up window: 16:30–19:00.', k:'air'},
   {t:'19:00', n:'✈️ UA2610 · Los Angeles → Denver', note:'Carry-on only. Lands 22:29 Denver time (LA + 1 h). Check in from 19:00 Tuesday LA time.', k:'fly', arr:'22:29', az:'DEN'},
-  {t:'22:29', z:'DEN', n:'DEN → Hyatt Place Denver Airport', note:'Hotel shuttle or Uber, 10–15 min, or Louisa if she already has the car.', k:'go', links:[['Directions',dir('Hyatt Place Denver Airport, 16250 E 40th Ave, Aurora, CO 80011')]]},
-  {t:'23:00', z:'DEN', n:'🛏️ Hyatt Place check-in', note:'Booked Wed 21 → Fri 23, late arrival and high floor requested. Parking US$12/day if Louisa brings the car.', k:'bed'}
+  {t:'22:29', z:'DEN', n:'DEN → Hyatt Place Denver Airport', note:'Hotel shuttle or Uber, 10–15 min, or Kat if she already has the car.', k:'go', links:[['Directions',dir('Hyatt Place Denver Airport, 16250 E 40th Ave, Aurora, CO 80011')]]},
+  {t:'23:00', z:'DEN', n:'🛏️ Hyatt Place check-in', note:'Booked Wed 21 → Fri 23, late arrival and high floor requested. Parking US$12/day if Kat brings the car.', k:'bed'}
  ]},
  {date:'2026-10-22', z:'DEN', title:'Show day 🎸', sub:'Denver · Thursday', ev:[
   {t:'07:00', end:'15:00', n:'Work from the hotel', note:'07:00–15:00 Denver = full 09:00–17:00 New York day.', k:'work'},
-  {t:'15:00', end:'16:45', n:'🍽️ Late lunch with Louisa\'s Denver friend', note:'Right after work, so somewhere near the airport hotel (Aurora / Gateway Park) unless your friend\'s pick is on the way. She works remotely and is flexible; Louisa is confirming. Bring the warm layer and passport: you go straight on to the show.', k:'fun'},
-  {t:'16:50', n:'Drive to Red Rocks with Louisa', note:'≈ 1 h from the airport area (less if lunch is in west Denver). The walk up from the lots is steep.', k:'go', links:[['Directions',dir('Red Rocks Amphitheatre, Morrison, CO')]]},
-  {t:'18:00', n:'Arrive at Red Rocks · doors open', note:'About 1 h before the show, as you and Louisa agreed (assigned seats, so no need to be earlier; earlier only buys closer parking). Tickets are AXS Mobile ID in Louisa\'s app: you go in together. Bring your passport.', k:'fun'},
+  {t:'15:00', end:'16:45', n:'🍽️ Late lunch with Kat\'s Denver friend', note:'Right after work, so somewhere near the airport hotel (Aurora / Gateway Park) unless your friend\'s pick is on the way. She works remotely and is flexible; Kat is confirming. Bring the warm layer and passport: you go straight on to the show.', k:'fun'},
+  {t:'16:50', n:'Drive to Red Rocks with Kat', note:'≈ 1 h from the airport area (less if lunch is in west Denver). The walk up from the lots is steep.', k:'go', links:[['Directions',dir('Red Rocks Amphitheatre, Morrison, CO')]]},
+  {t:'18:00', n:'Arrive at Red Rocks · doors open', note:'About 1 h before the show, as you and Kat agreed (assigned seats, so no need to be earlier; earlier only buys closer parking). Tickets are AXS Mobile ID in Kat\'s app: you go in together. Bring your passport.', k:'fun'},
   {t:'19:00', n:'🎸 Macklemore · Red Rocks Amphitheatre', note:'Row 4, seats 86–87 (the "Rows 2 to 4" section). ≈ 1,950 m up, open-air, cold after dark.', k:'fun'},
   {t:'23:30', n:'Drive back to the hotel', note:'≈ 1 h 15. That\'s 01:30 New York, and work starts 07:00.', k:'go'}
  ]},
  {date:'2026-10-23', z:'DEN', title:'Work, then overnight to Panama', sub:'Denver · Friday', ev:[
-  {t:'07:00', end:'15:00', n:'Work from the hotel', note:'Full New York day. Checkout is 12:00: at check-in, ask them to apply Louisa\'s Guest of Hyatt award for a free 16:00 checkout (otherwise ≈ US$50 for 15:00).', k:'work'},
+  {t:'07:00', end:'15:00', n:'Work from the hotel', note:'Full New York day. Checkout is 12:00: at check-in, ask them to apply Kat\'s Guest of Hyatt award for a free 16:00 checkout (otherwise ≈ US$50 for 15:00).', k:'work'},
   {t:'12:00', n:'Hotel checkout (or 15:00 if extended)', note:'', k:'bed'},
   {t:'19:30', n:'DEN · departures', note:'Hotel shuttle or Uber, 10–15 min. Copa is carry-on only. Online check-in opens 24 h before.', k:'air', links:[['Copa check-in','https://www.copaair.com/en-gs/web-check-in/']]},
   {t:'22:43', n:'✈️ CM477 · Denver → Panama City', note:'Overnight. Lands 05:33 Saturday, Panama time (Denver + 1 h).', k:'fly', arr:'05:33', az:'PTY'}
@@ -219,11 +219,11 @@ const BOOK = [
  ]},
  {g:'Stays', items:[
   {n:'The Live Hotel · LA day room', s:'ok', w:'Wed 21 · 09:00–14:00', d:['Standard King, booked on Dayuse','Pay at the hotel ≈ US$99 + tax (small deposit paid online)','Free cancellation up to 2 h before the slot ends'], todo:['Leave the bag at the desk before the museum'], links:[['Directions',dir('The Live Hotel Los Angeles')]]},
-  {n:'Hyatt Place Denver Airport', s:'ok', w:'Wed 21 (late) → Fri 23 12:00', d:['16250 E 40th Ave, Aurora · +1 303-371-0700','2 double beds + sofa bed, work desk','Late arrival + high floor requested','Parking US$12/day'], todo:['Ask at check-in to apply Louisa\'s Guest of Hyatt award: free 16:00 checkout on Fri (it didn\'t attach online; Hyatt\'s X/Twitter DMs answer fast). Fallback: 15:00 for ≈ US$50'], links:[['Call','tel:+13033710700'],['Directions',dir('Hyatt Place Denver Airport')]]},
+  {n:'Hyatt Place Denver Airport', s:'ok', w:'Wed 21 (late) → Fri 23 12:00', d:['16250 E 40th Ave, Aurora · +1 303-371-0700','2 double beds + sofa bed, work desk','Late arrival + high floor requested','Parking US$12/day'], todo:['Ask at check-in to apply Kat\'s Guest of Hyatt award: free 16:00 checkout on Fri (it didn\'t attach online; Hyatt\'s X/Twitter DMs answer fast). Fallback: 15:00 for ≈ US$50'], links:[['Call','tel:+13033710700'],['Directions',dir('Hyatt Place Denver Airport')]]},
   {n:'Home · Juiz de Fora', s:'ok', w:'Sun 25 → Tue 27', d:['Vote on Sunday','Work Mon + Tue'], todo:[]}
  ]},
  {g:'Tickets', items:[
-  {n:'🎸 Macklemore · Red Rocks', s:'ok', w:'Thu 22 · doors 18:00 · show 19:00', d:['Row 4, seats 86–87 ("Rows 2 to 4")','AXS Mobile ID, non-transferable, both in Louisa\'s app','You enter together; bring your passport','Your half is ≈ US$240'], todo:['Install the AXS app before you fly'], links:[['Directions',dir('Red Rocks Amphitheatre, Morrison, CO')]]},
+  {n:'🎸 Macklemore · Red Rocks', s:'ok', w:'Thu 22 · doors 18:00 · show 19:00', d:['Row 4, seats 86–87 ("Rows 2 to 4")','AXS Mobile ID, non-transferable, both in Kat\'s app','You enter together; bring your passport','Your half is ≈ US$240'], todo:['Install the AXS app before you fly'], links:[['Directions',dir('Red Rocks Amphitheatre, Morrison, CO')]]},
   {n:'🎟️ Hospital of Emotions · LA', s:'ok', w:'Wed 21 · entry 13:00–13:10', d:['General admission, ≈ 2 h','2131 W 3rd St, Los Angeles','Non-refundable'], todo:[], links:[['Directions',dir('Hospital of Emotions, 2131 W 3rd St, Los Angeles')]]}
  ]},
  {g:'Ground', items:[
@@ -240,7 +240,7 @@ const WORK = [
  ['Tue 20','São Paulo','10:00–16:00','From home, then the GRU lounge','full'],
  ['Wed 21','Los Angeles','09:30–12:45 (+ email 16:30–19:00)','Lose 09:00–12:30 NY over the Pacific: two meetings in that window. Send updates in writing first.','part'],
  ['Thu 22','Denver','07:00–15:00','Hotel. Then late lunch in Denver + show at 19:00.','full'],
- ['Fri 23','Denver','07:00–15:00','Hotel (16:00 checkout via Louisa\'s Hyatt award, if applied).','full'],
+ ['Fri 23','Denver','07:00–15:00','Hotel (16:00 checkout via Kat\'s Hyatt award, if applied).','full'],
  ['Sat 24','Panama','—','Weekend','off'],
  ['Sun 25','Juiz de Fora','—','Election day','off'],
  ['Mon 26','Juiz de Fora','10:00–18:00','Home','full'],
@@ -249,13 +249,13 @@ const WORK = [
 
 const CHECK = [
  ['lat','LATAM: fill travel documents + check in + seats','Do it before 16:00 today'],
- ['axs','Install the AXS app','Louisa has both tickets; you enter together'],
+ ['axs','Install the AXS app','Kat has both tickets; you enter together'],
  ['visa','Passport + US visa valid through the trip','Visa must cover 21–23 Oct'],
  ['ua','United check-in (from Tue 19:00 LA = 23:00 SP)',''],
  ['meet','Send written updates for the Wed 09:00–12:30 NY meetings',''],
- ['louisa','Ask Louisa: when does she pick up the rental car?','If Wed night at DEN, she can meet your 22:29 landing'],
- ['lunch','Confirm Thursday\'s late lunch with Louisa\'s friend (time + place)','Lunch 15:00, near the airport hotel; arrive at Red Rocks ≈ 18:00'],
- ['late','Hyatt: apply Louisa\'s Guest of Hyatt award (free 16:00 checkout Fri)','Ask at check-in Wed night; fallback 15:00 for ≈ US$50'],
+ ['louisa','Ask Kat: when does she pick up the rental car?','If Wed night at DEN, she can meet your 22:29 landing'],
+ ['lunch','Confirm Thursday\'s late lunch with Kat\'s friend (time + place)','Lunch 15:00, near the airport hotel; arrive at Red Rocks ≈ 18:00'],
+ ['late','Hyatt: apply Kat\'s Guest of Hyatt award (free 16:00 checkout Fri)','Ask at check-in Wed night; fallback 15:00 for ≈ US$50'],
  ['copa','Copa check-in (from Thu 22:43 Denver)',''],
  ['pan','Check Panama entry rules before booking the tour','See below'],
  ['tour','Decide the Panama tour',''],
@@ -406,7 +406,7 @@ function renderPrac(){
   h += '<h3 style="margin-top:26px;color:var(--sand)">Packing</h3>' + chkList(PACK);
   h += '<h3 style="margin-top:26px;color:var(--sand)">Weather</h3><p class="muted small">Live forecast for the day you\'re in each place (Open-Meteo, updates when online).</p><div class="wx" id="wx"></div><div id="rrHours"></div>';
   h += '<details><summary>🎸 Red Rocks: what decides the night</summary><div class="small"><ul class="tight">'
-    + '<li>Both tickets are in Louisa\'s AXS app and non-transferable: walk in together, passport in hand.</li>'
+    + '<li>Both tickets are in Kat\'s AXS app and non-transferable: walk in together, passport in hand.</li>'
     + '<li>≈ 1,950 m, open to the sky. It cools fast after dark and you sit still 18:00–23:00: check the hourly forecast above and bring a real warm layer.</li>'
     + '<li>The lots fill early and the walk up to the seats is steep: leaving at 16:45 is right.</li>'
     + '<li>Altitude + dry air: drink water, go easy on alcohol.</li>'
